@@ -1,13 +1,13 @@
-package com.welcometojejuv2;
+package com.welcometojeju;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WelcomeToJejuV2Application {
+public class WelcomeToJejuApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(WelcomeToJejuV2Application.class, args);
+    SpringApplication.run(WelcomeToJejuApplication.class, args);
   }
 
 }

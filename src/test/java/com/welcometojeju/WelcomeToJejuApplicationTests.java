@@ -1,10 +1,10 @@
-package com.welcometojejuv2;
+package com.welcometojeju;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WelcomeToJejuV2ApplicationTests {
+class WelcomeToJejuApplicationTests {
 
   @Test
   void contextLoads() {
