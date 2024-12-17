@@ -1,4 +1,4 @@
-package com.welcometojeju.domain; 
+package com.welcometojeju.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

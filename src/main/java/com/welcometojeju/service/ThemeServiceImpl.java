@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +17,26 @@ import java.util.stream.Collectors;
 public class ThemeServiceImpl implements ThemeService {
 
   private final ThemeRepository themeRepository;
+
+  @Override
+  public Integer createTheme(ThemeDTO themeDTO) {
+    Theme theme = dtoToEntity(themeDTO);
+
+    Integer no = themeRepository.save(theme).getNo();
+
+    return no;
+  }
+
+  @Override
+  public ThemeDTO getThemeByNo(Integer no) {
+    Optional<Theme> result = themeRepository.findById(no);
+
+    Theme theme = result.orElseThrow();
+
+    ThemeDTO themeDTO = entityToDto(theme);
+
+    return themeDTO;
+  }
 
   @Override
   public List<ThemeDTO> getAllPublicThemes() {
@@ -36,4 +57,5 @@ public class ThemeServiceImpl implements ThemeService {
 
     return themes;
   }
+
 }

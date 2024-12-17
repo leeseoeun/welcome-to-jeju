@@ -7,23 +7,27 @@ import java.util.List;
 
 public interface ThemeService {
 
+  Integer createTheme(ThemeDTO themeDTO);
+
+  ThemeDTO getThemeByNo(Integer no);
+
   List<ThemeDTO> getAllPublicThemes();
   List<ThemeDTO> getAllShareThemes();
 
-//  default Theme dtoToEntity(ThemeDTO themeDTO) {
-//    Theme theme = Theme.builder()
-//        .no(themeDTO.getNo())
-//        .title(themeDTO.getTitle())
-//        .user(themeDTO.getUser())
-//        .categoryNo(themeDTO.getCategoryNo())
-//        .isPublic(themeDTO.getIsPublic())
-//        .isShare(themeDTO.getIsShare())
-//        .emoji(themeDTO.getEmoji())
-//        .viewCount(themeDTO.getViewCount())
-//        .build();
-//
-//    return theme;
-//  }
+  default Theme dtoToEntity(ThemeDTO themeDTO) {
+    Theme theme = Theme.builder()
+        .no(themeDTO.getNo())
+        .title(themeDTO.getTitle())
+        .user(themeDTO.getUser())
+        .categoryNo(themeDTO.getCategoryNo())
+        .isPublic(themeDTO.getIsPublic())
+        .isShare(themeDTO.getIsShare())
+        .emoji(themeDTO.getEmoji())
+        .viewCount(themeDTO.getViewCount())
+        .build();
+
+    return theme;
+  }
 
   default ThemeDTO entityToDto(Theme theme) {
     ThemeDTO themeDTO = ThemeDTO.builder()
