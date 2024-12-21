@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,8 +38,8 @@ public class ThemeController {
     return "";
   }
 
-  @GetMapping("/themes/{no}")
-  public void getThemeByNo(@PathVariable Integer no) {
+  @GetMapping("/themes/get")
+  public void getThemeByNo(Integer no) {
     ThemeDTO theme = themeService.getThemeByNo(no);
 
     log.info("[getThemeByNo > theme] " + theme);
@@ -48,15 +47,18 @@ public class ThemeController {
 
   // 전체 테마 리스트 (공개, 공유)
   @GetMapping("/themes")
-  public void getAllThemes(Model model) {
+  public String getAllThemes(Model model) {
     List<ThemeDTO> publicThemes = themeService.getAllPublicThemes();
     List<ThemeDTO> shareThemes = themeService.getAllShareThemes();
 
     log.info("[getAllThemes > publicThemes] " + publicThemes);
     log.info("[getAllThemes > shareThemes] " + shareThemes);
 
+    model.addAttribute("themeType", "all");
     model.addAttribute("publicThemes", publicThemes);
-    model.addAttribute("shareThemeDTO", shareThemes);
+    model.addAttribute("shareThemes", shareThemes);
+
+    return "themeList";
   }
 
 }

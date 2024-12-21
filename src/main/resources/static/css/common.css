@@ -1,0 +1,17 @@
+@import url('//fonts.googleapis.com/earlyaccess/jejugothic.css');
+
+* {
+    font-family: 'Jeju Gothic';
+}
+
+html {
+    background-color: #FDBB2D;
+}
+
+.wtj-main-title, .wtj-sub-title {
+    text-align: center;
+}
+
+.wtj-sub-title {
+    font-weight: normal;
+}
