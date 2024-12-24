@@ -1,8 +1,10 @@
 package com.welcometojeju.service;
 
 import com.welcometojeju.domain.Theme;
+import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.ThemeDTO;
 import com.welcometojeju.repository.ThemeRepository;
+import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,13 @@ import java.util.stream.Collectors;
 public class ThemeServiceImpl implements ThemeService {
 
   private final ThemeRepository themeRepository;
+  private final UserRepository userRepository;
 
   @Override
   public Integer createTheme(ThemeDTO themeDTO) {
-    Theme theme = dtoToEntity(themeDTO);
+    User user = userRepository.findByNo(themeDTO.getUserNo());
+
+    Theme theme = dtoToEntity(themeDTO, user);
 
     Integer no = themeRepository.save(theme).getNo();
 
@@ -49,8 +54,50 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
-  public List<ThemeDTO> getAllShareThemes() {
+  public List<ThemeDTO> getAllCollaborateThemesThemes() {
     List<Theme> result = themeRepository.findAllByIsShare(1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getAllPublicThemesByUserNo(Integer userNo) {
+    List<Theme> result = themeRepository.findAllByUserNoAndIsPublic(userNo, 1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getAllPrivateThemesByUserNo(Integer userNo) {
+    List<Theme> result = themeRepository.findAllByUserNoAndIsPublic(userNo, 0);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  /* 수정 필요 */
+  @Override
+  public List<ThemeDTO> getAllCollaborateThemesByUserNo(Integer userNo) {
+    List<Theme> result = themeRepository.findAllByUserNoAndIsShare(userNo, 1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  /* 수정 필요 */
+  @Override
+  public List<ThemeDTO> getAllParticipateThemesByUserNo(Integer userNo) {
+    List<Theme> result = themeRepository.findAllByUserNoAndIsShare(userNo, 1);
 
     List<ThemeDTO> themes = result.stream()
         .map(theme -> entityToDto(theme)).collect(Collectors.toList());

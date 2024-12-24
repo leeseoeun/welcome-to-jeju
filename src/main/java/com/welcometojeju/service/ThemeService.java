@@ -1,6 +1,7 @@
 package com.welcometojeju.service;
 
 import com.welcometojeju.domain.Theme;
+import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.ThemeDTO;
 
 import java.util.List;
@@ -12,14 +13,19 @@ public interface ThemeService {
   ThemeDTO getThemeByNo(Integer no);
 
   List<ThemeDTO> getAllPublicThemes();
-  List<ThemeDTO> getAllShareThemes();
+  List<ThemeDTO> getAllCollaborateThemesThemes();
 
-  default Theme dtoToEntity(ThemeDTO themeDTO) {
+  List<ThemeDTO> getAllPublicThemesByUserNo(Integer userNo);
+  List<ThemeDTO> getAllPrivateThemesByUserNo(Integer userNo);
+
+  List<ThemeDTO> getAllCollaborateThemesByUserNo(Integer userNo);
+  List<ThemeDTO> getAllParticipateThemesByUserNo(Integer userNo);
+
+  default Theme dtoToEntity(ThemeDTO themeDTO, User user) {
     Theme theme = Theme.builder()
         .no(themeDTO.getNo())
         .title(themeDTO.getTitle())
-        .user(themeDTO.getUser())
-        .categoryNo(themeDTO.getCategoryNo())
+        .user(user)
         .isPublic(themeDTO.getIsPublic())
         .isShare(themeDTO.getIsShare())
         .emoji(themeDTO.getEmoji())
@@ -33,8 +39,7 @@ public interface ThemeService {
     ThemeDTO themeDTO = ThemeDTO.builder()
         .no(theme.getNo())
         .title(theme.getTitle())
-        .user(theme.getUser())
-        .categoryNo(theme.getCategoryNo())
+        .userNo(theme.getUser().getNo())
         .isPublic(theme.getIsPublic())
         .isShare(theme.getIsShare())
         .emoji(theme.getEmoji())

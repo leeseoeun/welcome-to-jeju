@@ -8,8 +8,44 @@ html {
     background-color: #FDBB2D;
 }
 
+a, a:hover {
+    text-decoration:none;
+    color: black;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.wtj-menu-list {
+    padding: 16px 16px 16px 0; /* 내부 여백 */
+    margin-left: 48px;
+}
+
+.wtj-menu {
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 기본 텍스트 색상 */
+    border-radius: 12px; /* 박스 모서리 둥글게 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+}
+
+.wtj-menu:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* 그림자 강조 */
+    cursor: pointer; /* 커서 변경 */
+}
+
+/* 입력 필드 스타일 */
+input[type="text"] {
+    width: calc(100% - 96px);
+    padding: 10px;
+    margin: 0 48px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
 .wtj-main-title, .wtj-sub-title {
-    text-align: center;
+    margin-left: 48px;
 }
 
 .wtj-sub-title {

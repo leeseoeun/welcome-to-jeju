@@ -22,14 +22,9 @@ public class Theme extends BaseEntity implements Comparable<Theme> {
   @JoinColumn(name = "user_no")
   private User user;
 
-  @Column(nullable = false)
-  private Integer categoryNo;
-
-  @Column(nullable = false)
   @Builder.Default
   private int isPublic = 1; // default 값이 있는 경우 기본형으로 선언
 
-  @Column(nullable = false)
   @Builder.Default
   private int isShare = 1;
 

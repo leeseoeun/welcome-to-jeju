@@ -1,0 +1,31 @@
+.wtj-link {
+    background-color: #fff; /* 배경색 */
+    color: #333; /* 기본 텍스트 색상 */
+    font-size: medium;
+}
+
+.wtj-link:hover {
+    cursor: pointer; /* 커서 변경 */
+}
+
+.wtj-title-explanation, .wtj-select-list {
+    margin: 0 0 24px 48px;
+}
+
+.wtj-theme-explanation {
+    margin: 0 0 24px 74px;
+}
+
+.wtj-sub-explanation {
+    font-size: smaller;
+}
+
+.wtj-sub-explanation:not(:last-of-type) {
+    /* 마지막 <p> 태그가 아닌 경우에만 적용할 스타일 */
+    margin-bottom: -12px;
+}
+
+.wtj-select {
+    font-size: larger;
+    padding: 4px 1px 1px 1px;
+}

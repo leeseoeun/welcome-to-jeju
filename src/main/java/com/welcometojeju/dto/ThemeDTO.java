@@ -23,15 +23,10 @@ public class ThemeDTO {
   private String title;
 
   @NotNull
-  private User user;
+  private Integer userNo;
 
-  @NotNull
-  private int categoryNo;
-
-  @NotNull
   private int isPublic;
 
-  @NotNull
   private int isShare;
 
   @NotEmpty
