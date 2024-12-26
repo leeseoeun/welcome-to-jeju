@@ -15,7 +15,7 @@ public class Theme extends BaseEntity implements Comparable<Theme> {
   @GeneratedValue
   private Integer no; // default 값이 없는 경우 참조형으로 선언
 
-  @Column(length = 255, nullable = false)
+  @Column(length = 100, nullable = false)
   private String title;
 
   @ManyToOne

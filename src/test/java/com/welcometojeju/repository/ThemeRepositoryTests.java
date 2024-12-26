@@ -17,13 +17,18 @@ public class ThemeRepositoryTests {
 
   @Autowired
   private ThemeRepository themeRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   @Test
   public void testCreateTheme() {
+    Optional<User> userResult = userRepository.findById(2);
+    User user = userResult.orElseThrow();
+
     IntStream.rangeClosed(1, 3).forEach(i -> {
       Theme theme = Theme.builder()
           .title("title" + i)
-          .user(new User(2))
+          .user(user)
           .isPublic(1)
           .isShare(0)
           .emoji("emoji" + i)
@@ -38,7 +43,7 @@ public class ThemeRepositoryTests {
     IntStream.rangeClosed(1, 3).forEach(i -> {
       Theme theme = Theme.builder()
           .title("title" + i + i)
-          .user(new User(2))
+          .user(user)
           .isPublic(0)
           .isShare(1)
           .emoji("emoji" + i + i)
@@ -53,7 +58,7 @@ public class ThemeRepositoryTests {
     IntStream.rangeClosed(1, 3).forEach(i -> {
       Theme theme = Theme.builder()
           .title("title" + i + i + i)
-          .user(new User(2))
+          .user(user)
           .isPublic(0)
           .isShare(0)
           .emoji("emoji" + i + i + i)

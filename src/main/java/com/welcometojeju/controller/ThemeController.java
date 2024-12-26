@@ -37,7 +37,9 @@ public class ThemeController {
   @PostMapping(value = "/create")
   public String createTheme(@Valid ThemeDTO themeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
     if (bindingResult.hasErrors()) {
-      return "";
+      log.info("[createTheme > post > error] " + bindingResult);
+
+      return "theme/create" + themeDTO.getUserNo();
     }
 
     log.info("[createTheme > post > theme] " + themeDTO);
@@ -47,7 +49,7 @@ public class ThemeController {
 
     log.info("[createTheme > post > no] " + no);
 
-    return "";
+    return "redirect:/theme/detail";
   }
 
   @GetMapping("/get")

@@ -38,7 +38,7 @@
             <div>
                 <div>[[${theme.emoji}]]</div>
                 <div>[[${theme.title}]]</div>
-                <div th:if="${themeType} == 'theme' or themeType == 'public'">[[${theme.user.no}]]</div>
+                <div th:if="${themeType} == 'themes' or ${themeType} == 'public'">[[${theme.userNickname}]]</div>
             </div>
         </a>
     </li>

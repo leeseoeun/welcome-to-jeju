@@ -1,7 +1,6 @@
 package com.welcometojeju.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -13,28 +12,25 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThemeDTO {
+public class UserDTO {
 
-  private Integer no;
-
-  @NotEmpty
-  @Size(min = 1, max = 255)
-  private String title;
-
-  @NotNull
-  private Integer userNo;
-
-  private int isPublic;
-
-  private int isShare;
+  private int no;
 
   @NotEmpty
   @Size(min = 1, max = 255)
-  private String emoji;
+  private String email;
+
+  @NotEmpty
+  @Size(min = 1, max = 60)
+  private String password;
+
+  @NotEmpty
+  @Size(min = 1, max = 20)
+  private String nickname;
+
+  private int isActive;
 
   @PositiveOrZero
   private int viewCount;
-
-  private String userNickname;
 
 }

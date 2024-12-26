@@ -44,6 +44,7 @@ public interface ThemeService {
         .isShare(theme.getIsShare())
         .emoji(theme.getEmoji())
         .viewCount(theme.getViewCount())
+        .userNickname(theme.getUser().getNickname())
         .build();
 
     return themeDTO;

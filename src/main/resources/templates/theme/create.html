@@ -12,8 +12,9 @@
 <form id="themeForm">
   <input type="hidden" name="userNo" th:value="${userNo}">
 
-  <div onclick="checkValidation()" class="wtj-menu-list">
-    <span class="wtj-menu">만들기</span>
+  <div class="wtj-menu-list">
+    <span onclick="checkValidation()" class="wtj-menu">만들기</span>
+    <span onclick="history.back()" class="wtj-menu">뒤로 가기</span>
   </div>
 
   <br>
@@ -85,7 +86,7 @@ let publicThemeText = document.getElementById('publicTheme');
 let privateThemeText = document.getElementById('privateTheme');
 
 let isPublic = 1
-let isShare = null;
+let isShare = -1;
 
 themeTypeDiv.addEventListener('change', function (e) {
   let themeType = e.target.value;
@@ -97,7 +98,7 @@ themeTypeDiv.addEventListener('change', function (e) {
     sharedThemeText.style.border = '';
 
     isPublic = 1;
-    isShare = null;
+    isShare = -1;
   } else if (themeType == 'shared') {
     publicTypeDiv.style.display = 'none';
     personalExplanationDiv.style.display = 'none';
@@ -105,7 +106,7 @@ themeTypeDiv.addEventListener('change', function (e) {
     personalThemeText.style.border = '';
     sharedThemeText.style.border = '1px solid';
 
-    isPublic = null;
+    isPublic = -1;
     isShare = 1;
   }
 });
@@ -146,9 +147,9 @@ function checkValidation() {
 
   fetch("/themes/create", {
     method: "POST",
+    redirect: "follow",
     body: formData
   }).then((data) => {
-    debugger;
     console.log(data);
   });
 }
