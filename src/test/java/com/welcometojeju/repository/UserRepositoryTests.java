@@ -20,7 +20,6 @@ public class UserRepositoryTests {
   public void testCreateUser() {
     IntStream.rangeClosed(1, 3).forEach(i -> {
       User user = User.builder()
-//          .no(i)
           .email("email" + i + "@test.com")
           .password("0000")
           .nickname("nickname" + i)

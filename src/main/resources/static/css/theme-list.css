@@ -1,3 +1,14 @@
+/* 컨테이너 스타일 */
+.wtj-theme-container {
+    margin: 0 auto;
+    width: 66%;
+    text-align: left;
+    background-color: #FFF5E1;
+    padding: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* wtj-theme-list 전체 컨테이너 스타일 */
 .wtj-theme-list {
     display: flex; /* 플렉스 박스 레이아웃 */
@@ -12,6 +23,8 @@
 .wtj-theme-list li {
     flex: 1 1 calc(33.333% - 32px); /* 3열 레이아웃, 간격 포함 */
     max-width: calc(33.333% - 32px); /* 최대 너비 제한 */
+    /*flex: 1 1 calc(50% - 32px); !* 2열 레이아웃, 간격 포함 *!*/
+    /*max-width: calc(50% - 32px); !* 최대 너비 제한 *!*/
 }
 
 /* wtj-theme 링크 스타일 */
@@ -50,7 +63,7 @@
     margin-bottom: 8px; /* 하단 정보와 간격 */
 }
 
-/* 테마의 하단 정보 (예: 큐레이터 정보) */
+/* 테마의 하단 정보 (유저 정보) */
 .wtj-theme div:nth-child(3) {
     font-size: 12px; /* 작은 폰트 크기 */
     color: #888; /* 연한 텍스트 색상 */

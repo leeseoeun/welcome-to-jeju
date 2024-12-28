@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
 
     return userDTO;
   }
+
+  @Override
+  public String getUserNicknameByNo(Integer no) {
+    return userRepository.findNicknameByNo(no);
+  }
 }

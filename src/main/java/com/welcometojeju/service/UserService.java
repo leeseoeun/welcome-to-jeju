@@ -8,6 +8,7 @@ public interface UserService {
   Integer createUser(UserDTO userDTO);
 
   UserDTO getUserByNo(Integer no);
+  String getUserNicknameByNo(Integer no);
 
   default User dtoToEntity(UserDTO userDTO) {
     User user = User.builder()

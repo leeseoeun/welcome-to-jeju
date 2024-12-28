@@ -23,7 +23,9 @@ public class ThemeServiceImpl implements ThemeService {
 
   @Override
   public Integer createTheme(ThemeDTO themeDTO) {
-    User user = userRepository.findByNo(themeDTO.getUserNo());
+    Optional<User> result = userRepository.findById(themeDTO.getUserNo());
+
+    User user = result.orElseThrow();
 
     Theme theme = dtoToEntity(themeDTO, user);
 

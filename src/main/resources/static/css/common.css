@@ -1,3 +1,4 @@
+/* 공통 스타일 */
 @import url('//fonts.googleapis.com/earlyaccess/jejugothic.css');
 
 * {
@@ -5,11 +6,11 @@
 }
 
 html {
-    background-color: #FDBB2D;
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 50%);
 }
 
 a, a:hover {
-    text-decoration:none;
+    text-decoration: none;
     color: black;
 }
 
@@ -17,21 +18,53 @@ a:hover {
     cursor: pointer;
 }
 
-.wtj-menu-list {
-    padding: 16px 16px 16px 0; /* 내부 여백 */
-    margin-left: 48px;
+/* 헤더 스타일 */
+header {
+    position: fixed; /* 화면에 고정 */
+    top: 0; /* 상단에 위치 */
+    left: 0; /* 왼쪽에 위치 */
+    width: 100%; /* 헤더가 화면의 가로 크기에 맞게 확장 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+    background-color: #FDBB2D; /* 헤더 배경색 (예: 제주도 귤 색상) */
 }
 
-.wtj-menu {
-    background-color: #fff; /* 배경색 */
-    color: #333; /* 기본 텍스트 색상 */
-    border-radius: 12px; /* 박스 모서리 둥글게 */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+.wtj-main {
+    margin: 16px 0 16px 48px;
+    font-size: xxx-large;
+    font-weight: bold;
 }
 
-.wtj-menu:hover {
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* 그림자 강조 */
-    cursor: pointer; /* 커서 변경 */
+.wtj-main-menu-list, .wtj-menu-list {
+    display: flex;
+    gap: 15px;
+    padding: 16px 0 16px 48px;
+}
+
+.wtj-main-menu, .wtj-menu {
+    background-color: #fff;
+    color: #333;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.wtj-main-menu:hover, .wtj-menu:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.wtj-main-container {
+    padding: 200px 0 100px 0;
+}
+
+/* 컨테이너 스타일 */
+.wtj-container {
+    margin: 0 auto;
+    width: 50%;
+    text-align: left;
+    background-color: #FFF5E1;
+    padding: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* 입력 필드 스타일 */

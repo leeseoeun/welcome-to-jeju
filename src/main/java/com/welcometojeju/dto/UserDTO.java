@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTO {
 
-  private int no;
+  private Integer no;
 
   @NotEmpty
   @Size(min = 1, max = 255)

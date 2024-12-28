@@ -2,7 +2,9 @@ package com.welcometojeju.controller;
 
 import com.welcometojeju.domain.ThemeType;
 import com.welcometojeju.dto.ThemeDTO;
+import com.welcometojeju.repository.UserRepository;
 import com.welcometojeju.service.ThemeService;
+import com.welcometojeju.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +26,17 @@ import java.util.List;
 public class ThemeController {
 
   private final ThemeService themeService;
+  private final UserService userService;
 
   @GetMapping("/create")
   public String createTheme(Integer userNo, Model model) {
     log.info("[createTheme > get > userNO] " + userNo);
 
+    String userNickname = userService.getUserNicknameByNo(userNo);
+    log.info("[createTheme > get > userNickname] " + userNickname);
+
     model.addAttribute("userNo", userNo);
+    model.addAttribute("userNickname", userNickname);
 
     return "theme/create";
   }
