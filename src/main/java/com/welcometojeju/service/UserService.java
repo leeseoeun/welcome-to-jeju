@@ -8,6 +8,9 @@ public interface UserService {
   Integer createUser(UserDTO userDTO);
 
   UserDTO getUserByNo(Integer no);
+  UserDTO getUserByEmail(String email);
+  UserDTO getUserByNickname(String nickname);
+
   String getUserNicknameByNo(Integer no);
 
   default User dtoToEntity(UserDTO userDTO) {

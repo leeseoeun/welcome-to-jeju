@@ -2,7 +2,6 @@ package com.welcometojeju.controller;
 
 import com.welcometojeju.domain.ThemeType;
 import com.welcometojeju.dto.ThemeDTO;
-import com.welcometojeju.repository.UserRepository;
 import com.welcometojeju.service.ThemeService;
 import com.welcometojeju.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +45,7 @@ public class ThemeController {
     if (bindingResult.hasErrors()) {
       log.info("[createTheme > post > error] " + bindingResult);
 
-      return "theme/create" + themeDTO.getUserNo();
+      return "redirect:theme/create" + themeDTO.getUserNo();
     }
 
     log.info("[createTheme > post > theme] " + themeDTO);
@@ -56,7 +55,7 @@ public class ThemeController {
 
     log.info("[createTheme > post > no] " + no);
 
-    return "redirect:/theme/detail";
+    return "redirect:/theme/detail" + themeDTO.getNo();
   }
 
   @GetMapping("/get")

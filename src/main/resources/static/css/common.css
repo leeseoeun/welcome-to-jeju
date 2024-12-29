@@ -68,7 +68,7 @@ header {
 }
 
 /* 입력 필드 스타일 */
-input[type="text"] {
+input[type="text"], input[type="email"], input[type="password"] {
     width: calc(100% - 96px);
     padding: 10px;
     margin: 0 48px;
