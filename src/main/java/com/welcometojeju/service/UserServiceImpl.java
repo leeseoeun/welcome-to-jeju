@@ -63,7 +63,21 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserDTO getUserByEmailAndPassword(String email, String password) {
+    Optional<User> result = userRepository.findByEmailAndPassword(email, password);
+
+    if (result.isEmpty()) {
+      return null;
+    }
+
+    UserDTO userDTO = entityToDto(result.get());
+
+    return userDTO;
+  }
+
+  @Override
   public String getUserNicknameByNo(Integer no) {
     return userRepository.findNicknameByNo(no);
   }
+
 }

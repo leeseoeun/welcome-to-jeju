@@ -3,20 +3,20 @@
       xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
       layout:decorate="~{layout/header.html}">
 <head>
-    <title>회원 가입 - 제주 옵서예</title>
+    <title>로그인 - 제주 옵서예</title>
 </head>
 <body>
 <div layout:fragment="content" class="wtj-main-container">
     <div class="wtj-container">
         <form id="userForm">
             <div class="wtj-menu-list">
-                <span onclick="checkValidation()" class="wtj-menu">회원 가입</span>
+                <span onclick="checkValidation()" class="wtj-menu">로그인</span>
                 <span onclick="history.back()" class="wtj-menu">뒤로 가기</span>
             </div>
 
             <br>
 
-            <h1 class="wtj-main-title">회원 가입</h1>
+            <h1 class="wtj-main-title">로그인</h1>
 
             <br>
 
@@ -27,11 +27,6 @@
 
             <h2 class="wtj-sub-title">비밀번호</h2>
             <input type="password" id="password" name="password" maxlength="60">
-
-            <br>
-
-            <h2 class="wtj-sub-title">닉네임</h2>
-            <input type="text" id="nickname" name="nickname" maxlength="20">
         </form>
 
         <script>
@@ -46,14 +41,9 @@
                     return;
                 }
 
-                if (document.getElementById('nickname').value == '') {
-                    alert('닉네임을 입력해 주세요.');
-                    return;
-                }
-
                 let formData = new FormData(document.getElementById('userForm'));
 
-                fetch("/users/create", {
+                fetch("/users/login", {
                     method: "POST",
                     redirect: "follow",
                     body: formData

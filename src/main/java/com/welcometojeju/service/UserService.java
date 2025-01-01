@@ -10,6 +10,7 @@ public interface UserService {
   UserDTO getUserByNo(Integer no);
   UserDTO getUserByEmail(String email);
   UserDTO getUserByNickname(String nickname);
+  UserDTO getUserByEmailAndPassword(String email, String password);
 
   String getUserNicknameByNo(Integer no);
 
