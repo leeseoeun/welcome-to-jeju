@@ -6,6 +6,7 @@
 }
 
 html {
+    height: 100%;
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 67%);
 }
 
@@ -34,6 +35,10 @@ header {
     font-weight: bold;
 }
 
+.wtj-main:hover {
+    cursor: pointer;
+}
+
 .wtj-main-menu-list, .wtj-menu-list {
     display: flex;
     gap: 15px;
@@ -59,7 +64,7 @@ header {
 /* 컨테이너 스타일 */
 .wtj-container {
     margin: 0 auto;
-    width: 50%;
+    width: 33%;
     text-align: left;
     background-color: #FFF5E1;
     padding: 20px 0 40px 0;

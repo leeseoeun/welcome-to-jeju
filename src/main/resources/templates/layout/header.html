@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +11,12 @@
 <body>
 <header>
     <div class="wtj-main-menu-list">
-        <span onclick="navigateTo('login')" class="wtj-main-menu">로그인</span>
-        <span onclick="navigateTo('signup')" class="wtj-main-menu">회원 가입</span>
-        <span onclick="navigateTo('myInfo')" class="wtj-main-menu">나의 정보</span>
-        <span onclick="navigateTo('logout')" class="wtj-main-menu">로그아웃</span>
-        <span onclick="navigateTo('personal')" class="wtj-main-menu">나의 개인 테마 보기</span>
-        <span onclick="navigateTo('shared')" class="wtj-main-menu">나의 공유 테마 보기</span>
+        <span th:if="${user == null}" onclick="navigateTo('login')" class="wtj-main-menu">로그인</span>
+        <span th:if="${user == null}" onclick="navigateTo('signup')" class="wtj-main-menu">회원 가입</span>
+        <span th:if="${user != null}" onclick="navigateTo('myInfo')" class="wtj-main-menu">나의 정보</span>
+        <span th:if="${user != null}" onclick="navigateTo('logout')" class="wtj-main-menu">로그아웃</span>
+        <span th:if="${user != null}" onclick="navigateTo('personal')" class="wtj-main-menu">나의 개인 테마 보기</span>
+        <span th:if="${user != null}" onclick="navigateTo('shared')" class="wtj-main-menu">나의 공유 테마 보기</span>
         <span onclick="navigateTo('themes')" class="wtj-main-menu">전체 테마 보기</span>
         <span onclick="navigateTo('search')" class="wtj-main-menu">검색</span>
         <span onclick="navigateTo('ranking')" class="wtj-main-menu">순위</span>

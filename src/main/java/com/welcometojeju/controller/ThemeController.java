@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ public class ThemeController {
   private final ThemeService themeService;
   private final UserService userService;
 
+  @PreAuthorize("isAuthenticated()")
   @GetMapping("/create")
   public String createTheme(Integer userNo, Model model) {
     log.info("[createTheme > get > userNO] " + userNo);
