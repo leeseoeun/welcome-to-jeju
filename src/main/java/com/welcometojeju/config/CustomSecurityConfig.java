@@ -12,8 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
@@ -45,6 +43,11 @@ public class CustomSecurityConfig {
     );
 
     http.csrf(auth -> auth.disable());
+
+    http.oauth2Login(oauth2Login ->
+        oauth2Login
+            .loginPage("/users/login")
+    );
 
     return http.build();
   }

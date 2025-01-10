@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+</head>
+<body>
+<header>
+    <div class="wtj-main-menu-list">
+        <span th:if="${#authentication.name == 'anonymousUser'}" onclick="navigateTo('login')" class="wtj-main-menu">로그인</span>
+        <span th:if="${#authentication.name == 'anonymousUser'}" onclick="navigateTo('signup')" class="wtj-main-menu">회원 가입</span>
+        <span th:if="${#authentication.name != 'anonymousUser'}" onclick="navigateTo('myInfo')" class="wtj-main-menu">나의 정보</span>
+        <span th:if="${#authentication.name != 'anonymousUser'}" onclick="navigateTo('logout')" class="wtj-main-menu">로그아웃</span>
+        <span th:if="${#authentication.name != 'anonymousUser'}" onclick="navigateTo('personal')" class="wtj-main-menu">나의 개인 테마 보기</span>
+        <span th:if="${#authentication.name != 'anonymousUser'}" onclick="navigateTo('shared')" class="wtj-main-menu">나의 공유 테마 보기</span>
+        <span onclick="navigateTo('themes')" class="wtj-main-menu">전체 테마 보기</span>
+        <span onclick="navigateTo('search')" class="wtj-main-menu">검색</span>
+        <span onclick="navigateTo('ranking')" class="wtj-main-menu">순위</span>
+    </div>
+    <div onclick="navigateTo('home')" class="wtj-main">
+        <span>제주 옵서예</span>
+    </div>
+</header>
+
+<br>
+
+<div layout:fragment="content"></div>
+
+<br>
+
+<footer></footer>
+
+<script th:inline="javascript">
+    const auth = [[${#authentication}]];
+    console.log(auth);
+
+    function navigateTo(page) {
+        const urlMapping = {
+            login: '/users/login',
+            signup: '/users/create',
+            myInfo: '/users/myInfo',
+            logout: '/users/logout',
+            personal: '/themes/personal',
+            shared: '/themes/shared',
+            themes: '/themes',
+            search: '/search',
+            ranking: '/ranking',
+            home: '/'
+        };
+
+        window.location.href = urlMapping[page];
+    }
+</script>
+</body>
+</html>

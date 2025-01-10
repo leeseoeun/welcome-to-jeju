@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
-      layout:decorate="~{layout/header.html}">
+      layout:decorate="~{layout/basic.html}">
 <head>
     <title>로그인 - 제주 옵서예</title>
+    <link rel="stylesheet" th:href="@{/css/user-login.css}">
 </head>
 <body>
 <div layout:fragment="content" class="wtj-main-container">
     <div class="wtj-container">
         <form id="userForm">
             <div class="wtj-menu-list">
-                <span onclick="checkValidation()" class="wtj-menu">로그인</span>
                 <span onclick="history.back()" class="wtj-menu">뒤로 가기</span>
             </div>
 
@@ -20,51 +20,12 @@
 
             <br>
 
-            <h2 class="wtj-sub-title">이메일</h2>
-            <input type="email" id="email" name="username" maxlength="255">
-
-            <br>
-
-            <h2 class="wtj-sub-title">비밀번호</h2>
-            <input type="password" id="password" name="password" maxlength="60">
+            <div class="wtj-social-login">
+                <a href="/oauth2/authorization/kakao">
+                    <img th:src="@{/images/kakao_login.png}" class="wtj-social-login-image">
+                </a>
+            </div>
         </form>
-
-        <script>
-            function checkValidation() {
-                if (document.getElementById('email').value == '') {
-                    alert('이메일을 입력해 주세요.');
-                    return;
-                }
-
-                if (document.getElementById('password').value == '') {
-                    alert('비밀번호를 입력해 주세요.');
-                    return;
-                }
-
-                let formData = new FormData(document.getElementById('userForm'));
-
-                fetch("/users/login", {
-                    method: "POST",
-                    redirect: "follow",
-                    body: formData
-                }).then(response => response.json()
-                ).then((data) => {
-                    console.log(data);
-
-                    if (data.error) {
-                        alert(data.error);
-                    } else if (data.redirectUrl) {
-                        window.location.href = data.redirectUrl;
-                    }
-                }).catch(error => {
-                    console.log(error);
-
-                    if (error.redirectUrl) {
-                        window.location.href = error.redirectUrl;
-                    }
-                });
-            }
-        </script>
     </div>
 </div>
 </body>

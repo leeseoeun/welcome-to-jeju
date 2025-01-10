@@ -33,6 +33,11 @@ public class User extends BaseEntity implements Comparable<User> {
   @Builder.Default
   private int viewCount = 0;
 
+  private String role;
+
+  private String provider;
+  private String providerId;
+
   @Override
   public int compareTo(User user) {
     return user.viewCount - this.viewCount;
