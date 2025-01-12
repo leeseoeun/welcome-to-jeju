@@ -11,14 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginDTO {
+public class UserInfoDTO {
 
   @NotEmpty
-  @Size(min = 1, max = 255)
-  private String email;
-
-  @NotEmpty
-  @Size(min = 1, max = 60)
-  private String password;
+  @Size(min = 1, max = 20)
+  private String nickname;
 
 }

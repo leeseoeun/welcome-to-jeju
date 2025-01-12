@@ -28,9 +28,12 @@ public class UserDTO {
   @Size(min = 1, max = 20)
   private String nickname;
 
-  private int isActive;
-
   @PositiveOrZero
   private int viewCount;
+
+  private String role = "ROLE_USER";
+
+  private String provider;
+  private String providerId;
 
 }

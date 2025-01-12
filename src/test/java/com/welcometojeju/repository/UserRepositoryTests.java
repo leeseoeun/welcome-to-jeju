@@ -23,7 +23,6 @@ public class UserRepositoryTests {
           .email("email" + i + "@test.com")
           .password("0000")
           .nickname("nickname" + i)
-          .isActive(1)
           .viewCount(0)
           .build();
 

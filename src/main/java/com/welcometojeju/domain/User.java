@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
@@ -12,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@DynamicUpdate
 public class User extends BaseEntity implements Comparable<User> {
 
   @Id
@@ -28,12 +30,9 @@ public class User extends BaseEntity implements Comparable<User> {
   private String nickname;
 
   @Builder.Default
-  private int isActive = 1;
-
-  @Builder.Default
   private int viewCount = 0;
 
-  private String role;
+  private String role = "ROLE_USER";
 
   private String provider;
   private String providerId;

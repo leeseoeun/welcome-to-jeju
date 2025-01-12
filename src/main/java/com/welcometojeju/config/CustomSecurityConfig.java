@@ -35,11 +35,12 @@ public class CustomSecurityConfig {
         .formLogin(formLogin ->
             formLogin
                 .loginPage("/users/login")
-                .successHandler((request, response, authentication) -> {
-                  response.setContentType("application/json");
-                  response.getWriter().write("{\"redirectUrl\": \"/\"}");
-                })
                 .permitAll()
+    )
+        .logout(logout ->
+            logout
+                .logoutUrl("/users/logout")
+                .logoutSuccessUrl("/")
     );
 
     http.csrf(auth -> auth.disable());

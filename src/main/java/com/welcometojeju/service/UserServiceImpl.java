@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   @Override
-  public Integer createUser(UserDTO userDTO) {
+  public Integer updateUser(UserDTO userDTO) {
     User user = dtoToEntity(userDTO);
 
     Integer no = userRepository.save(user).getNo();
@@ -26,45 +26,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserDTO getUserByNo(Integer no) {
-    Optional<User> result = userRepository.findById(no);
-
-    User user = result.orElseThrow();
-
-    UserDTO userDTO = entityToDto(user);
-
-    return userDTO;
-  }
-
-  @Override
-  public UserDTO getUserByEmail(String email) {
-    Optional<User> result = userRepository.findByEmail(email);
-
-    if (result.isEmpty()) {
-      return null;
-    }
-
-    UserDTO userDTO = entityToDto(result.get());
-
-    return userDTO;
-  }
-
-  @Override
-  public UserDTO getUserByNickname(String nickname) {
-    Optional<User> result = userRepository.findByNickname(nickname);
-
-    if (result.isEmpty()) {
-      return null;
-    }
-
-    UserDTO userDTO = entityToDto(result.get());
-
-    return userDTO;
-  }
-
-  @Override
-  public UserDTO getUserByEmailAndPassword(String email, String password) {
-    Optional<User> result = userRepository.findByEmailAndPassword(email, password);
+  public UserDTO getUserByProviderId(String providerId) {
+    Optional<User> result = userRepository.findByProviderId(providerId);
 
     if (result.isEmpty()) {
       return null;

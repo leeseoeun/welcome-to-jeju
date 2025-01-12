@@ -5,12 +5,9 @@ import com.welcometojeju.dto.UserDTO;
 
 public interface UserService {
 
-  Integer createUser(UserDTO userDTO);
+  Integer updateUser(UserDTO userDTO);
 
-  UserDTO getUserByNo(Integer no);
-  UserDTO getUserByEmail(String email);
-  UserDTO getUserByNickname(String nickname);
-  UserDTO getUserByEmailAndPassword(String email, String password);
+  UserDTO getUserByProviderId(String providerId);
 
   String getUserNicknameByNo(Integer no);
 
@@ -20,8 +17,10 @@ public interface UserService {
         .email(userDTO.getEmail())
         .password(userDTO.getPassword())
         .nickname(userDTO.getNickname())
-        .isActive(userDTO.getIsActive())
         .viewCount(userDTO.getViewCount())
+        .role(userDTO.getRole())
+        .provider(userDTO.getProvider())
+        .providerId(userDTO.getProviderId())
         .build();
 
     return user;
@@ -33,8 +32,10 @@ public interface UserService {
         .email(user.getEmail())
         .password(user.getPassword())
         .nickname(user.getNickname())
-        .isActive(user.getIsActive())
         .viewCount(user.getViewCount())
+        .role(user.getRole())
+        .provider(user.getProvider())
+        .providerId(user.getProviderId())
         .build();
 
     return userDTO;
