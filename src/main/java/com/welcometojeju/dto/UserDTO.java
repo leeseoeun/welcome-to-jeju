@@ -31,7 +31,7 @@ public class UserDTO {
   @PositiveOrZero
   private int viewCount;
 
-  private String role = "ROLE_USER";
+  private String role;
 
   private String provider;
   private String providerId;

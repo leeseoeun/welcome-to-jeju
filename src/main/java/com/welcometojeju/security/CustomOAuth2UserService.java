@@ -3,6 +3,7 @@ package com.welcometojeju.security;
 import com.welcometojeju.domain.User;
 import com.welcometojeju.repository.UserRepository;
 import com.welcometojeju.security.oauth.KakaoOAuth2UserInfo;
+import com.welcometojeju.security.oauth.NaverOAuth2UserInfo;
 import com.welcometojeju.security.oauth.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -49,6 +50,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     switch (clientName) {
       case "kakao":
         userInfo = new KakaoOAuth2UserInfo(attributeMap);
+        break;
+      case "naver":
+        userInfo = new NaverOAuth2UserInfo(attributeMap);
+        break;
     }
 
     log.info("[loadUser > userInfo] " + userInfo);
