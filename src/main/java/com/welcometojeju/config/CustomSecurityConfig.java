@@ -27,19 +27,19 @@ public class CustomSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(authorizeRequests ->
         authorizeRequests
-            .requestMatchers("/users/create", "/users/login", "/users/logout",
-                "/themes", "/themes/collaborate", "/themes/public",
-                "/", "/search", "/ranking").permitAll()
+            .requestMatchers("/me/create", "/me/login", "/me/logout",
+                "/themes", "/themes/public", "/themes/collaborate",
+                "/", "/search/**", "/ranking", "/error").permitAll()
             .anyRequest().authenticated()
     )
         .formLogin(formLogin ->
             formLogin
-                .loginPage("/users/login")
+                .loginPage("/me/login")
                 .permitAll()
     )
         .logout(logout ->
             logout
-                .logoutUrl("/users/logout")
+                .logoutUrl("/me/logout")
                 .logoutSuccessUrl("/")
     );
 
@@ -47,7 +47,10 @@ public class CustomSecurityConfig {
 
     http.oauth2Login(oauth2Login ->
         oauth2Login
-            .loginPage("/users/login")
+            .loginPage("/me/login")
+            .successHandler((request, response, authentication) -> {
+              response.sendRedirect("/");
+            })
     );
 
     return http.build();

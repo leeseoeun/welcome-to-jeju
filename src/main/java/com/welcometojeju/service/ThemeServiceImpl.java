@@ -107,4 +107,24 @@ public class ThemeServiceImpl implements ThemeService {
     return themes;
   }
 
+  @Override
+  public List<ThemeDTO> getAllPublicThemesByKeyword(String keyword) {
+    List<Theme> result = themeRepository.findAllByTitleContainingAndIsPublic(keyword, 1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getAllCollaborateThemesByKeyword(String keyword) {
+    List<Theme> result = themeRepository.findAllByTitleContainingAndIsShare(keyword, 1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
 }

@@ -14,7 +14,7 @@
             <a href="/themes" class="wtj-menu">모든 테마</a>
             <a href="/themes/public" class="wtj-menu">개인 테마</a>
             <a href="/themes/collaborate" class="wtj-menu">공유 테마</a>
-            <a href="/themes/create" class="wtj-menu">테마 만들기</a>
+            <a th:if="${#authentication.name != 'anonymousUser'}" href="/themes/create" class="wtj-menu">테마 만들기</a>
         </div>
 
         <br>
@@ -28,39 +28,37 @@
 
         <br>
 
-        <h2 th:switch="${themeType}" class="wtj-sub-title">
-            <span th:case="'themes'">개인 테마</span>
-            <span th:case="'public'">개인 테마</span>
-            <span th:case="'collaborate'">공유 테마</span>
-        </h2>
+        <div th:if="${themeType == 'themes' || themeType == 'public'}">
+            <h2 class="wtj-sub-title">개인 테마</h2>
 
-        <ul class="wtj-theme-list">
-            <li th:each="theme : ${themeType == 'themes' or themeType == 'public' ? publicThemes : collaborateThemes}">
-            <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
-                    <div>
-                        <div>[[${theme.emoji}]]</div>
-                        <div>[[${theme.title}]]</div>
-                        <div th:if="${themeType} == 'themes' or ${themeType} == 'public'">[[${theme.userNickname}]]</div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+            <ul class="wtj-theme-list">
+                <li th:each="theme : ${publicThemes}">
+                    <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${theme.emoji}]]</div>
+                            <div>[[${theme.title}]]</div>
+                            <div>[[${theme.userNickname}]]</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <br>
 
-        <div th:if="${themeType == 'themes'}">
-        <h2 class="wtj-sub-title">공유 테마</h2>
+        <div th:if="${themeType == 'themes' || themeType == 'collaborate'}">
+            <h2 class="wtj-sub-title">개인 테마</h2>
 
-        <ul class="wtj-theme-list">
-            <li th:each="theme : ${collaborateThemes}">
-            <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
-                    <div>
-                        <div>[[${theme.emoji}]]</div>
-                        <div>[[${theme.title}]]</div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+            <ul class="wtj-theme-list">
+                <li th:each="theme : ${collaborateThemes}">
+                    <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${theme.emoji}]]</div>
+                            <div>[[${theme.title}]]</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+<head>
+    <title>검색 - 제주 옵서예</title>
+    <link rel="stylesheet" th:href="@{/css/theme-list.css}">
+</head>
+<body>
+<div layout:fragment="content" class="wtj-main-container">
+    <div class="wtj-theme-container">
+        <form id="searchForm" action="/search" method="post">
+            <input th:value="${keyword}" type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요." class="wtj-keyword">
+            <span onclick="checkValidation()" class="wtj-menu">검색하기</span>
+        </form>
+
+        <div th:if="${keyword != null}">
+            <br>
+
+            <div class="wtj-menu-list">
+                <span onclick="updateList('search')" class="wtj-menu">전체</span>
+                <span onclick="updateList('themes')" class="wtj-menu">전체 테마</span>
+                <span onclick="updateList('public')" class="wtj-menu">개인 테마</span>
+                <span onclick="updateList('collaborate')" class="wtj-menu">공유 테마</span>
+                <span onclick="updateList('users')" class="wtj-menu">유저</span>
+            </div>
+        </div>
+
+        <br>
+
+        <h1 th:switch="${searchType}" class="wtj-main-title">
+            <span th:if="${keyword} != null">'[[${keyword}]]' </span>
+            <span>검색하기</span>
+            <span th:if="${keyword} != null"> > </span>
+            <span th:case="'search'">전체</span>
+            <span th:case="'themes'">전체 테마</span>
+            <span th:case="'public'">개인 테마</span>
+            <span th:case="'collaborate'">공유 테마</span>
+            <span th:case="'users'">유저</span>
+        </h1>
+
+        <div th:if="${keyword != null}">
+
+            <br>
+
+            <div th:if="${searchType == 'search' || searchType == 'themes' || searchType == 'public'}">
+                <h2 class="wtj-sub-title">개인 테마</h2>
+
+                <ul class="wtj-theme-list">
+                    <li th:each="theme : ${publicThemes}">
+                        <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                            <div>
+                                <div>[[${theme.emoji}]]</div>
+                                <div>[[${theme.title}]]</div>
+                                <div>[[${theme.userNickname}]]</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+
+            <div th:if="${searchType == 'search' || searchType == 'themes' || searchType == 'collaborate'}">
+                <h2 class="wtj-sub-title">공유 테마</h2>
+
+                <ul class="wtj-theme-list">
+                    <li th:each="theme : ${collaborateThemes}">
+                        <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                            <div>
+                                <div>[[${theme.emoji}]]</div>
+                                <div>[[${theme.title}]]</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+
+            <div th:if="${searchType == 'search' || searchType == 'users'}">
+                <h2 class="wtj-sub-title">유저</h2>
+
+                <ul class="wtj-theme-list">
+                    <li th:each="user : ${users}">
+                        <a th:href="@{/users/get(no=${user.no})}" class="wtj-theme">
+                            <div>
+                                <div>[[${user.nickname}]]</div>
+                                <div>[[${user.nickname}]]의 테마 보러 가기</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script>
+            function checkValidation() {
+                if (document.getElementById('keyword').value == '') {
+                    alert('검색어을 입력해 주세요.');
+                    return;
+                }
+
+                document.getElementById('searchForm').submit();
+            }
+
+            function updateList(type) {
+                const urlMapping = {
+                    search: '/search',
+                    themes: '/search/themes',
+                    public: '/search/public',
+                    collaborate: '/search/collaborate',
+                    users: '/search/users',
+                };
+
+                let form = document.getElementById('searchForm');
+                form.action = urlMapping[type];
+                form.submit();
+            }
+        </script>
+    </div>
+</div>
+</body>
+</html>

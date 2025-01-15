@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,8 +41,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public String getUserNicknameByNo(Integer no) {
-    return userRepository.findNicknameByNo(no);
+  public List<UserDTO> getAllUsersByKeyword(String keyword) {
+    List<User> result = userRepository.findAllByNicknameContaining(keyword);
+
+    List<UserDTO> users = result.stream()
+        .map(user -> entityToDto(user)).collect(Collectors.toList());
+
+    return users;
   }
 
 }

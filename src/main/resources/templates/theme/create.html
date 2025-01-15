@@ -74,85 +74,86 @@
     </form>
 
     <script>
-    let themeTypeDiv = document.getElementById('themeType');
-    let personalThemeText = document.getElementById('personalTheme');
-    let sharedThemeText = document.getElementById('sharedTheme');
+      let themeTypeDiv = document.getElementById('themeType');
+      let personalThemeText = document.getElementById('personalTheme');
+      let sharedThemeText = document.getElementById('sharedTheme');
 
-    let personalExplanationDiv = document.getElementById('personalExplanation');
-    let sharedExplanationDiv = document.getElementById('sharedExplanation');
+      let personalExplanationDiv = document.getElementById('personalExplanation');
+      let sharedExplanationDiv = document.getElementById('sharedExplanation');
 
-    let publicTypeDiv = document.getElementById('publicType');
-    let publicThemeText = document.getElementById('publicTheme');
-    let privateThemeText = document.getElementById('privateTheme');
+      let publicTypeDiv = document.getElementById('publicType');
+      let publicThemeText = document.getElementById('publicTheme');
+      let privateThemeText = document.getElementById('privateTheme');
 
-    let isPublic = 1
-    let isShare = -1;
+      let isPublic = 1
+      let isShare = -1;
 
-    themeTypeDiv.addEventListener('change', function (e) {
-      let themeType = e.target.value;
-      if (themeType == 'personal') {
-        publicTypeDiv.style.display = '';
-        personalExplanationDiv.style.display = '';
-        sharedExplanationDiv.style.display = 'none';
-        personalThemeText.style.border = '1px solid';
-        sharedThemeText.style.border = '';
+      themeTypeDiv.addEventListener('change', function (e) {
+        let themeType = e.target.value;
+        if (themeType == 'personal') {
+          publicTypeDiv.style.display = '';
+          personalExplanationDiv.style.display = '';
+          sharedExplanationDiv.style.display = 'none';
+          personalThemeText.style.border = '1px solid';
+          sharedThemeText.style.border = '';
 
-        isPublic = 1;
-        isShare = -1;
-      } else if (themeType == 'shared') {
-        publicTypeDiv.style.display = 'none';
-        personalExplanationDiv.style.display = 'none';
-        sharedExplanationDiv.style.display = '';
-        personalThemeText.style.border = '';
-        sharedThemeText.style.border = '1px solid';
+          isPublic = 1;
+          isShare = -1;
+        } else if (themeType == 'shared') {
+          publicTypeDiv.style.display = 'none';
+          personalExplanationDiv.style.display = 'none';
+          sharedExplanationDiv.style.display = '';
+          personalThemeText.style.border = '';
+          sharedThemeText.style.border = '1px solid';
 
-        isPublic = -1;
-        isShare = 1;
-      }
-    });
-
-    publicTypeDiv.addEventListener('change', function (e) {
-      let themeType = e.target.value;
-      if (themeType == 'public') {
-        publicThemeText.style.border = '1px solid';
-        privateThemeText.style.border = ''
-
-        isPublic = 1;
-      } else if (themeType == 'private') {
-        publicThemeText.style.border = '';
-        privateThemeText.style.border = '1px solid';
-
-        isPublic = 0;
-      }
-    });
-
-    function checkValidation() {
-      if (document.getElementById('emoji').value == '') {
-        alert('테마 이모티콘을 입력해 주세요.');
-        return;
-      }
-
-      if (document.getElementById('title').value == '') {
-        alert('테마 이름을 입력해 주세요.');
-        return;
-      }
-
-      let formData = new FormData(document.getElementById('themeForm'));
-
-      formData.delete('themeType');
-      formData.delete('personalType');
-
-      formData.append('isPublic', isPublic);
-      formData.append('isShare', isShare);
-
-      fetch("/themes/create", {
-        method: "POST",
-        redirect: "follow",
-        body: formData
-      }).then((data) => {
-        console.log(data);
+          isPublic = -1;
+          isShare = 1;
+        }
       });
-    }
+
+      publicTypeDiv.addEventListener('change', function (e) {
+        let themeType = e.target.value;
+        if (themeType == 'public') {
+          publicThemeText.style.border = '1px solid';
+          privateThemeText.style.border = ''
+
+          isPublic = 1;
+        } else if (themeType == 'private') {
+          publicThemeText.style.border = '';
+          privateThemeText.style.border = '1px solid';
+
+          isPublic = 0;
+        }
+      });
+
+      function checkValidation() {
+        if (document.getElementById('emoji').value == '') {
+          alert('테마 이모티콘을 입력해 주세요.');
+          return;
+        }
+
+        if (document.getElementById('title').value == '') {
+          alert('테마 이름을 입력해 주세요.');
+          return;
+        }
+
+        let formData = new FormData(document.getElementById('themeForm'));
+
+        formData.delete('themeType');
+        formData.delete('personalType');
+
+        formData.append('isPublic', isPublic);
+        formData.append('isShare', isShare);
+
+        fetch("/themes/create", {
+          method: "POST",
+          redirect: "follow",
+          body: formData
+        }).then((data) => {
+          console.log(data);
+          window.location.href = data.url;
+        });
+      }
     </script>
   </div>
 </div>

@@ -21,6 +21,9 @@ public interface ThemeService {
   List<ThemeDTO> getAllCollaborateThemesByUserNo(Integer userNo);
   List<ThemeDTO> getAllParticipateThemesByUserNo(Integer userNo);
 
+  List<ThemeDTO> getAllCollaborateThemesByKeyword(String keyword);
+  List<ThemeDTO> getAllPublicThemesByKeyword(String keyword);
+
   default Theme dtoToEntity(ThemeDTO themeDTO, User user) {
     Theme theme = Theme.builder()
         .no(themeDTO.getNo())

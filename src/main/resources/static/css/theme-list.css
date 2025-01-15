@@ -68,3 +68,9 @@
     font-size: 12px; /* 작은 폰트 크기 */
     color: #888; /* 연한 텍스트 색상 */
 }
+
+.wtj-keyword {
+    width: calc(29% - 96px) !important;
+    margin-left: 48px !important;
+    margin-right: 12px !important;
+}

@@ -3,13 +3,15 @@ package com.welcometojeju.service;
 import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.UserDTO;
 
+import java.util.List;
+
 public interface UserService {
 
   Integer updateUser(UserDTO userDTO);
 
   UserDTO getUserByProviderId(String providerId);
 
-  String getUserNicknameByNo(Integer no);
+  List<UserDTO> getAllUsersByKeyword(String keyword);
 
   default User dtoToEntity(UserDTO userDTO) {
     User user = User.builder()
