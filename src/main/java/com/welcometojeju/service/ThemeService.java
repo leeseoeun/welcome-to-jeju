@@ -9,6 +9,7 @@ import java.util.List;
 public interface ThemeService {
 
   Integer createTheme(ThemeDTO themeDTO);
+  void deleteTheme(Integer no);
 
   ThemeDTO getThemeByNo(Integer no);
 

@@ -14,13 +14,13 @@
             <a href="/me/themes/personal" class="wtj-menu">모든 테마</a>
             <a href="/me/themes/public" class="wtj-menu">공개 테마</a>
             <a href="/me/themes/private" class="wtj-menu">비공개 테마</a>
-            <a href="/themes/create" class="wtj-menu">테마 만들기</a>
+            <a href="/themes/create" class="wtj-menu wtj-menu-create">테마 만들기</a>
         </div>
         <div th:if="${themeType == 'shared' || themeType == 'collaborate' || themeType == 'participate'}" class="wtj-menu-list">
             <a href="/me/themes/shared" class="wtj-menu">모든 테마</a>
             <a href="/me/themes/collaborate" class="wtj-menu">공유 테마</a>
             <a href="/me/themes/participate" class="wtj-menu">참여 테마</a>
-            <a href="/themes/create" class="wtj-menu">테마 만들기</a>
+            <a href="/themes/create" class="wtj-menu wtj-menu-create">테마 만들기</a>
         </div>
 
         <br>
@@ -38,10 +38,18 @@
         <br>
 
         <div th:if="${themeType == 'personal' || themeType == 'public'}">
-            <h2 class="wtj-sub-title">개인 테마</h2>
+            <h2 class="wtj-sub-title">공개 테마</h2>
 
             <ul class="wtj-theme-list">
                 <li th:each="theme : ${publicThemes}">
+                    <div class="wtj-icon">
+                        <a th:href="@{/themes/update(no=${theme.no})}">
+                            <img th:src="@{/images/edit_icon.png}" class="wtj-icon-image">
+                        </a>
+                        <a th:href="@{/themes/delete(no=${theme.no})}">
+                            <img th:src="@{/images/delete_icon.png}" class="wtj-icon-image">
+                        </a>
+                    </div>
                     <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
                         <div>
                             <div>[[${theme.emoji}]]</div>
@@ -60,6 +68,14 @@
 
             <ul class="wtj-theme-list">
                 <li th:each="theme : ${privateThemes}">
+                    <div class="wtj-icon">
+                        <a th:href="@{/themes/update(no=${theme.no})}">
+                            <img th:src="@{/images/edit_icon.png}" class="wtj-icon-image">
+                        </a>
+                        <a th:href="@{/themes/delete(no=${theme.no})}">
+                            <img th:src="@{/images/delete_icon.png}" class="wtj-icon-image">
+                        </a>
+                    </div>
                     <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
                         <div>
                             <div>[[${theme.emoji}]]</div>

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -29,31 +28,50 @@ public class ThemeController {
   private final SecurityUtils securityUtils;
 
   @PreAuthorize("isAuthenticated()")
-  @GetMapping("/create")
-  public String createTheme(Model model) {
+  @GetMapping({"/create", "/update"})
+  public String createTheme(Integer no, Model model) {
+    log.info("[createTheme > get > no] " + no);
+
     UserDTO user = securityUtils.getAuthenticatedUser();
-
     log.info("[createTheme > get > user] " + user);
-
-    model.addAttribute("userNo", user.getNo());
     model.addAttribute("userNickname", user.getNickname());
+
+    if (no != null) {
+      ThemeDTO theme = themeService.getThemeByNo(no);
+      log.info("[createTheme > theme] " + theme);
+      model.addAttribute("theme", theme);
+
+      return "theme/update";
+    }
 
     return "theme/create";
   }
 
-  @PostMapping(value = "/create")
-  public String createTheme(@Valid ThemeDTO themeDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+  @PostMapping({"/create", "/update"})
+  public String createTheme(@Valid ThemeDTO themeDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       log.info("[createTheme > post > error] " + bindingResult);
 
-      return "redirect:theme/create" + themeDTO.getUserNo();
+      return "redirect:theme/create";
     }
 
     log.info("[createTheme > post > theme] " + themeDTO);
 
-    Integer no = themeService.createTheme(themeDTO);
+    UserDTO user = securityUtils.getAuthenticatedUser();
+    log.info("[createTheme > post > user] " + user);
+    themeDTO.setUserNo(user.getNo());
 
+    Integer no = themeService.createTheme(themeDTO);
     log.info("[createTheme > post > no] " + no);
+
+    return "redirect:/";
+  }
+
+  @GetMapping("/delete")
+  public String deleteTheme(Integer no) {
+    log.info("[deleteTheme > get > no] " + no);
+
+    themeService.deleteTheme(no);
 
     return "redirect:/";
   }
@@ -66,8 +84,7 @@ public class ThemeController {
   }
 
   // 전체 테마 리스트 (공개, 공유)
-  @GetMapping({"", "/public", "/collaborate"})
-  @PostMapping({"", "/{themeType}"})
+  @GetMapping({"", "/{themeType}"})
   public String getAllThemes(@PathVariable(required = false) String themeType, Model model) {
     themeType = themeType == null ? "themes" : themeType;
     log.info("[getAllThemes > themeType] " + themeType);

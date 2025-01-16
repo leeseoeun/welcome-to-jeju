@@ -35,6 +35,11 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
+  public void deleteTheme(Integer no) {
+    themeRepository.deleteById(no);
+  }
+
+  @Override
   public ThemeDTO getThemeByNo(Integer no) {
     Optional<Theme> result = themeRepository.findById(no);
 

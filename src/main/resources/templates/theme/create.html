@@ -11,11 +11,9 @@
 <div layout:fragment="content" class="wtj-main-container">
   <div class="wtj-container">
     <form id="themeForm">
-      <input type="hidden" name="userNo" th:value="${userNo}">
-
       <div class="wtj-menu-list">
-        <span onclick="checkValidation()" class="wtj-menu">만들기</span>
-        <span onclick="history.back()" class="wtj-menu">뒤로 가기</span>
+        <span onclick="checkValidation()" class="wtj-menu wtj-menu-create">만들기</span>
+        <span onclick="history.back()" class="wtj-menu wtj-menu-back">뒤로 가기</span>
       </div>
 
       <br>
@@ -62,6 +60,7 @@
         <p class="wtj-sub-explanation">다른 사람이 만든 테마에도 참여하여 장소를 등록할 수 있어요.</p>
         <p class="wtj-sub-explanation">관심사가 같은 사람들과 협력하며 테마를 더욱 풍성하게 만들어 보세요.</p>
         <p class="wtj-sub-explanation">소통과 공유로 특별한 경험을 만들어 보세요.</p>
+        <p class="wtj-sub-explanation">※ 한번 생성한 공유 테마는 수정하거나, 삭제할 수 없어요!</p>
       </div>
       <div id="publicType" class="wtj-select-list">
         <label>

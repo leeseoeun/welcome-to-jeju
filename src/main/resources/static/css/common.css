@@ -7,6 +7,7 @@
 
 html {
     height: auto;
+    min-height: 100%;
     background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 67%);
 }
 
@@ -57,15 +58,16 @@ header {
     cursor: pointer;
 }
 
-.wtj-main-container {
-    padding: 200px 0 100px 0;
+.wtj-menu-create, .wtj-menu-create:hover {
+    color: #0000ff;
 }
 
-/* 푸터 스타일 */
-footer {
-    position: relative; /* 화면에 고정 */
-    transform: translateY(-100%);
-    background: #22c0c3;
+.wtj-menu-back, .wtj-menu-back:hover {
+    color: #ff0000;
+}
+
+.wtj-main-container {
+    padding: 200px 0 100px 0;
 }
 
 /* 컨테이너 스타일 */

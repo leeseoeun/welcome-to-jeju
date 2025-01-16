@@ -1,7 +1,6 @@
 package com.welcometojeju.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ public class ThemeDTO {
   @Size(min = 1, max = 255)
   private String title;
 
-  @NotNull
   private Integer userNo;
 
   private int isPublic;
