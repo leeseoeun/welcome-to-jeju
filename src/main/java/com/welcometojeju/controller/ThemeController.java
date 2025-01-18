@@ -77,10 +77,14 @@ public class ThemeController {
   }
 
   @GetMapping("/get")
-  public void getThemeByNo(Integer no) {
+  public String getThemeByNo(Integer no, Model model) {
     ThemeDTO theme = themeService.getThemeByNo(no);
 
     log.info("[getThemeByNo > theme] " + theme);
+
+    model.addAttribute("theme", theme);
+
+    return "theme/read";
   }
 
   // 전체 테마 리스트 (공개, 공유)

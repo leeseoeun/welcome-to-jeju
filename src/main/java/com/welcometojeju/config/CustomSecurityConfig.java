@@ -28,8 +28,9 @@ public class CustomSecurityConfig {
     http.authorizeHttpRequests(authorizeRequests ->
         authorizeRequests
             .requestMatchers("/me/create", "/me/login", "/me/logout",
-                "/themes", "/themes/public", "/themes/collaborate",
-                "/", "/search/**", "/ranking", "/error").permitAll()
+                "/themes", "/themes/public", "/themes/collaborate", "/themes/get",
+                "/", "/search/**", "/ranking", "/favicon.ico", "/error",
+                "http://dapi.kakao.com/**").permitAll()
             .anyRequest().authenticated()
     )
         .formLogin(formLogin ->
