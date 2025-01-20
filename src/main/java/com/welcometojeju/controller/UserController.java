@@ -30,7 +30,14 @@ public class UserController {
   private final SecurityUtils securityUtils;
 
   @GetMapping("/login")
-  public String login() {
+  public String login(HttpServletRequest request) {
+    String prevPage = request.getHeader("Referer");
+
+    log.info("[login > get > prevPage] " + prevPage);
+
+    // 세션에 이전 페이지 정보 저장
+    request.getSession().setAttribute("prevPage", prevPage);
+
     return "user/login";
   }
 
@@ -53,16 +60,16 @@ public class UserController {
   @PostMapping("/update")
   public String updateUser(@Valid UserInfoDTO userInfoDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
-      log.info("[updateUser > post > error] " + bindingResult);
+      log.info("[updateUser > error] " + bindingResult);
 
       return "redirect:/me";
     }
 
-    log.info("[updateUser > post > user] " + userInfoDTO);
+    log.info("[updateUser > user] " + userInfoDTO);
 
     UserDTO user = securityUtils.getAuthenticatedUser();
 
-    log.info("[updateUser > post > user] " + user);
+    log.info("[updateUser > user] " + user);
 
     user.setNickname(userInfoDTO.getNickname());
     userService.updateUser(user);

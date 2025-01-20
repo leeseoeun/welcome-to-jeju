@@ -3,6 +3,9 @@ package com.welcometojeju.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -12,8 +15,11 @@ import lombok.*;
 public class Theme extends BaseEntity implements Comparable<Theme> {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no; // default 값이 없는 경우 참조형으로 선언
+
+  @Column(length = 255, nullable = false)
+  private String emoji;
 
   @Column(length = 100, nullable = false)
   private String title;
@@ -28,11 +34,11 @@ public class Theme extends BaseEntity implements Comparable<Theme> {
   @Builder.Default
   private int isShare = 1;
 
-  @Column(length = 255, nullable = false)
-  private String emoji;
-
   @Builder.Default
   private int viewCount = 0;
+
+  @OneToMany(mappedBy = "theme")
+  private List<ThemePlace> placeList = new ArrayList<>();
 
   @Override
   public int compareTo(Theme theme) {

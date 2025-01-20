@@ -1,6 +1,7 @@
 package com.welcometojeju.controller;
 
 import com.welcometojeju.dto.SearchDTO;
+import com.welcometojeju.dto.SearchPlaceDTO;
 import com.welcometojeju.dto.ThemeDTO;
 import com.welcometojeju.dto.UserDTO;
 import com.welcometojeju.service.ThemeService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +30,7 @@ public class SearchController {
 
   @GetMapping
   public String search() {
-    return "search";
+    return "search/theme-user";
   }
 
   @PostMapping({"", "/{searchType}"})
@@ -60,7 +62,22 @@ public class SearchController {
     model.addAttribute("searchType", searchType);
     model.addAttribute("keyword", keyword);
 
-    return "search";
+    return "search/theme-user";
+  }
+
+  @PostMapping("/place")
+  public String searchPlaceByKeyword(@Valid SearchPlaceDTO searchPlaceDTO, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+      log.info("[searchPlaceByKeyword > error] " + bindingResult);
+
+      return "redirect:/themes/get?no=" + searchPlaceDTO.getThemeNo();
+    }
+
+    log.info("[searchPlaceByKeyword > searchPlace] " + searchPlaceDTO);
+
+    model.addAttribute("themeNo", searchPlaceDTO.getThemeNo());
+
+    return "search/place";
   }
 
 }

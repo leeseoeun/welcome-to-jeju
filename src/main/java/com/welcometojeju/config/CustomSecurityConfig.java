@@ -50,7 +50,14 @@ public class CustomSecurityConfig {
         oauth2Login
             .loginPage("/me/login")
             .successHandler((request, response, authentication) -> {
-              response.sendRedirect("/");
+              // 이전 페이지 URL 세션에서 가져오기
+              String prevPage = (String) request.getSession().getAttribute("prevPage");
+              if (prevPage != null) {
+                // 리다이렉트
+                response.sendRedirect(prevPage);
+              } else {
+                response.sendRedirect("/"); // 기본 URL로 리다이렉트
+              }
             })
     );
 

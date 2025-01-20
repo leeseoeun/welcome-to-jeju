@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,6 +17,10 @@ import lombok.NoArgsConstructor;
 public class ThemeDTO {
 
   private Integer no;
+
+  @NotEmpty
+  @Size(min = 1, max = 255)
+  private String emoji;
 
   @NotEmpty
   @Size(min = 1, max = 255)
@@ -26,12 +32,10 @@ public class ThemeDTO {
 
   private int isShare;
 
-  @NotEmpty
-  @Size(min = 1, max = 255)
-  private String emoji;
-
   @PositiveOrZero
   private int viewCount;
+
+  private List<ThemePlaceDTO> placeList;
 
   private String userNickname;
 
