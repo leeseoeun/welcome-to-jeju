@@ -13,7 +13,7 @@
 <div class="wtj-theme-place-container">
     <div class="wtj-menu-container">
         <a th:if="${#authentication.name == 'anonymousUser'}" href="/me/login" class="wtj-menu">로그인</a>
-        <span th:if="${#authentication.name != 'anonymousUser'}" onclick="searchPlaces();" class="wtj-menu">추가할 장소 검색하기</span>
+        <span th:if="${#authentication.name != 'anonymousUser' and isUpdate != 0}" onclick="searchPlaces();" class="wtj-menu">추가할 장소 검색하기</span>
         <span onclick="history.back()" class="wtj-menu">뒤로가기</span>
     </div>
     <div class="wtj-theme-container">

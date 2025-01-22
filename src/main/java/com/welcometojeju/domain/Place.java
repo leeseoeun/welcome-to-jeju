@@ -12,7 +12,6 @@ import lombok.*;
 public class Place extends BaseEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no;
 
   @Column(nullable = false)

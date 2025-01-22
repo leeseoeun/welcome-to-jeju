@@ -9,17 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlaceDTO {
-
-  private Integer no;
-
-  private String name;
-
-  private String address;
-
-  private String x;
-
-  private String y;
+public class UserShareThemeDTO {
 
   private Integer userNo;
 

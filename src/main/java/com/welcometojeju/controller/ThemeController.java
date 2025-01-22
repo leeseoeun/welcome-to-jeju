@@ -79,10 +79,16 @@ public class ThemeController {
   @GetMapping("/get")
   public String getThemeByNo(Integer no, Model model) {
     ThemeDTO theme = themeService.getThemeByNo(no);
-
     log.info("[getThemeByNo > theme] " + theme);
 
+    UserDTO user = securityUtils.getAuthenticatedUser();
+    log.info("[getThemeByNo > user] " + user);
+
+    int isUpdate = (user != null && theme.getIsPublic() == 1 && user.getNo() != theme.getUserNo()) ? 0 : 1;
+    log.info("[getThemeByNo > isUpdate] " + isUpdate);
+
     model.addAttribute("theme", theme);
+    model.addAttribute("isUpdate", isUpdate);
 
     return "theme/read";
   }

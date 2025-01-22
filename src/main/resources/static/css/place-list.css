@@ -9,8 +9,11 @@ body {
 
 .wtj-menu-container {
     text-align: right;
-    padding-top: 16px;
-    padding-right: 16px;
+    padding: 16px 16px 16px 0;
+}
+
+.wtj-menu-container span:nth-child(1) {
+    margin-left: 16px;
 }
 
 .wtj-menu {
@@ -46,11 +49,11 @@ body {
 }
 
 .wtj-search-place-list-container {
-    height: calc(100vh - 85px);
+    height: calc(100vh - 101px);
 }
 
 .wtj-place-list {
-    padding: 16px;
+    padding: 0 16px 16px 16px;
     list-style: none;
 }
 

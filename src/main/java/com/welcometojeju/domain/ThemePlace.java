@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -14,11 +15,11 @@ public class ThemePlace extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "theme_id")
   private Theme theme;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "place_id")
   private Place place;
 

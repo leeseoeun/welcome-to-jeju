@@ -1,0 +1,50 @@
+.wtj-place-modal {
+    margin: 0 auto;
+    width: 33%;
+    text-align: left;
+    background-color: #FFF5E1;
+    padding: 20px 0 0 0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    position: fixed;
+    top: 22%;
+    left: 33%;
+    z-index: 10000;
+}
+
+.wtj-place-information {
+    margin: 0 0 20px 48px;
+}
+
+.wtj-place-name {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.wtj-place-address {
+    font-size: 15px;
+    color: #888;
+}
+
+.wtj-place-review {
+    background-color: #ffffff;
+    padding: 20px 0 40px 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.wtj-photo-review, .wtj-comment-review {
+    margin: 19.920px 0 19.920px 48px;
+    font-weight: normal;
+}
+
+.wtj-photo-review-button {
+    margin-left: 48px;
+    padding: 10px 10px 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.wtj-photo-review-button:hover {
+    cursor: pointer;
+}
