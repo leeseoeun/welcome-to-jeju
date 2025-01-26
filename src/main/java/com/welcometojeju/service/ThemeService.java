@@ -12,9 +12,10 @@ public interface ThemeService {
   void deleteTheme(Integer no);
 
   ThemeDTO getThemeByNo(Integer no);
+  ThemeDTO getThemeWithPlacesByNo(Integer no);
 
   List<ThemeDTO> getAllPublicThemes();
-  List<ThemeDTO> getAllCollaborateThemesThemes();
+  List<ThemeDTO> getAllCollaborateThemes();
 
   List<ThemeDTO> getAllPublicThemesByUserNo(Integer userNo);
   List<ThemeDTO> getAllPrivateThemesByUserNo(Integer userNo);

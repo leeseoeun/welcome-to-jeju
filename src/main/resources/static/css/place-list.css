@@ -12,7 +12,7 @@ body {
     padding: 16px 16px 16px 0;
 }
 
-.wtj-menu-container span:nth-child(1) {
+.wtj-menu-container a:nth-child(1), .wtj-menu-container span:nth-child(1) {
     margin-left: 16px;
 }
 
@@ -129,3 +129,4 @@ body {
 .info span:nth-child(1) {
     font-weight: bold;
 }
+#placesList .item .markerbg-star {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png) no-repeat;}

@@ -31,9 +31,13 @@ public class UserDTO {
   @PositiveOrZero
   private int viewCount;
 
+  @NotEmpty
   private String role;
 
+  @NotEmpty
   private String provider;
+
+  @NotEmpty
   private String providerId;
 
 }

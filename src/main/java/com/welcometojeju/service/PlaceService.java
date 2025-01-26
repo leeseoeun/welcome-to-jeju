@@ -4,9 +4,12 @@ import com.welcometojeju.domain.Place;
 import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.PlaceDTO;
 
+import java.util.List;
+
 public interface PlaceService {
 
-  Integer createPlace(PlaceDTO placeDTO);
+  Integer createPlace(PlaceDTO placeDTO, User user);
+  Integer createPlaceAndRelations(PlaceDTO placeDTO);
 
   default Place dtoToEntity(PlaceDTO placeDTO, User user) {
     Place place = Place.builder()
@@ -15,6 +18,7 @@ public interface PlaceService {
         .address(placeDTO.getAddress())
         .x(placeDTO.getX())
         .y(placeDTO.getY())
+        .phone(placeDTO.getPhone())
         .user(user)
         .build();
 

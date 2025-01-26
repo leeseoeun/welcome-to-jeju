@@ -2,7 +2,9 @@ package com.welcometojeju.service;
 
 import com.welcometojeju.domain.Theme;
 import com.welcometojeju.domain.User;
+import com.welcometojeju.dto.PlaceDTO;
 import com.welcometojeju.dto.ThemeDTO;
+import com.welcometojeju.dto.ThemePlaceDTO;
 import com.welcometojeju.repository.ThemeRepository;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +53,31 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
+  public ThemeDTO getThemeWithPlacesByNo(Integer no) {
+    Optional<Theme> result = themeRepository.findWithPlacesByNo(no);
+    Theme theme = result.orElseThrow();
+    ThemeDTO themeDTO = entityToDto(theme);
+
+    List<ThemePlaceDTO> placeList = theme.getPlaceList().stream()
+        .map(pl -> ThemePlaceDTO.builder()
+            .themeNo(pl.getTheme().getNo())
+            .placeNo(pl.getPlace().getNo())
+            .placeDTO(PlaceDTO.builder()
+                .no(pl.getPlace().getNo())
+                .name(pl.getPlace().getName())
+                .address(pl.getPlace().getAddress())
+                .phone(pl.getPlace().getPhone())
+                .x(pl.getPlace().getX())
+                .y(pl.getPlace().getY())
+                .build())
+            .build()).collect(Collectors.toList());
+
+    themeDTO.setPlaceList(placeList);
+
+    return themeDTO;
+  }
+
+  @Override
   public List<ThemeDTO> getAllPublicThemes() {
     List<Theme> result = themeRepository.findAllByIsPublic(1);
 
@@ -61,7 +88,7 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
-  public List<ThemeDTO> getAllCollaborateThemesThemes() {
+  public List<ThemeDTO> getAllCollaborateThemes() {
     List<Theme> result = themeRepository.findAllByIsShare(1);
 
     List<ThemeDTO> themes = result.stream()
@@ -90,7 +117,6 @@ public class ThemeServiceImpl implements ThemeService {
     return themes;
   }
 
-  /* 수정 필요 */
   @Override
   public List<ThemeDTO> getAllCollaborateThemesByUserNo(Integer userNo) {
     List<Theme> result = themeRepository.findAllByUserNoAndIsShare(userNo, 1);
@@ -101,10 +127,9 @@ public class ThemeServiceImpl implements ThemeService {
     return themes;
   }
 
-  /* 수정 필요 */
   @Override
   public List<ThemeDTO> getAllParticipateThemesByUserNo(Integer userNo) {
-    List<Theme> result = themeRepository.findAllByUserNoAndIsShare(userNo, 1);
+    List<Theme> result = themeRepository.findAllParticipateThemesByUserNo(userNo);
 
     List<ThemeDTO> themes = result.stream()
         .map(theme -> entityToDto(theme)).collect(Collectors.toList());

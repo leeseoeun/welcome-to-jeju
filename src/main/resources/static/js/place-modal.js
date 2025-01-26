@@ -1,4 +1,4 @@
-function showPlaceModal(title, id, address, x, y) {
+function showPlaceModal(title, id, address, phone, x, y) {
     let placeModal = document.getElementById('placeModal');
     placeModal.style.display = '';
 
@@ -8,6 +8,7 @@ function showPlaceModal(title, id, address, x, y) {
     document.getElementById('name').value = title;
     document.getElementById('no').value = id;
     document.getElementById('address').value = address;
+    document.getElementById('phone').value = phone;
     document.getElementById('x').value = x;
     document.getElementById('y').value = y;
 }
@@ -20,8 +21,4 @@ function addPlace() {
 
 function closePlaceModal() {
     document.getElementById('placeModal').style.display = 'none';
-}
-
-function addPhotos() {
-    document.getElementById('photo').click();
 }

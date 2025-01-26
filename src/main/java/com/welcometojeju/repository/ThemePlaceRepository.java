@@ -4,4 +4,7 @@ import com.welcometojeju.domain.ThemePlace;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ThemePlaceRepository extends JpaRepository<ThemePlace, Integer> {
+
+  boolean existsByThemeNoAndPlaceNo(Integer themeNo, Integer placeNo);
+
 }

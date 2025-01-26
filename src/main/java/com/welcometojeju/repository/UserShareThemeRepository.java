@@ -4,4 +4,7 @@ import com.welcometojeju.domain.UserShareTheme;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserShareThemeRepository extends JpaRepository<UserShareTheme, Integer> {
+
+  boolean existsByUserNoAndThemeNo(Integer userNo, Integer themeNo);
+
 }

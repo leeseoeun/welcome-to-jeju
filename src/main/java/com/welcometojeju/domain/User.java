@@ -29,9 +29,14 @@ public class User extends BaseEntity implements Comparable<User> {
   @Builder.Default
   private int viewCount = 0;
 
+  @Builder.Default
+  @Column(length = 20)
   private String role = "ROLE_USER";
 
+  @Column(length = 50, nullable = false)
   private String provider;
+
+  @Column(length = 255, nullable = false)
   private String providerId;
 
   @Override

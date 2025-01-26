@@ -35,4 +35,9 @@ public class ThemePlaceServiceImpl implements ThemePlaceService {
     themePlaceRepository.save(themePlace);
   }
 
+  @Override
+  public boolean existsByThemeNoAndPlaceNo(Integer themeNo, Integer placeNo) {
+    return themePlaceRepository.existsByThemeNoAndPlaceNo(themeNo, placeNo);
+  }
+
 }

@@ -1,7 +1,6 @@
 package com.welcometojeju.service;
 
 import com.welcometojeju.domain.*;
-import com.welcometojeju.dto.ThemePlaceDTO;
 import com.welcometojeju.dto.UserShareThemeDTO;
 import com.welcometojeju.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +29,11 @@ public class UserShareThemeServiceImpl implements UserShareThemeService {
     UserShareTheme userShareTheme = dtoToEntity(user, theme);
 
     userShareThemeRepository.save(userShareTheme);
+  }
+
+  @Override
+  public boolean existsByUserNoAndThemeNo(Integer userNo, Integer themeNo) {
+    return userShareThemeRepository.existsByUserNoAndThemeNo(userNo, themeNo);
   }
 
 }

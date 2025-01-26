@@ -9,6 +9,8 @@ public interface ThemePlaceService {
 
   void createThemePlace(ThemePlaceDTO themePlaceDTO);
 
+  boolean existsByThemeNoAndPlaceNo(Integer themeNo, Integer placeNo);
+
   default ThemePlace dtoToEntity(Theme theme, Place place) {
     ThemePlace themePlace = ThemePlace.builder()
         .theme(theme)

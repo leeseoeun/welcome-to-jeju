@@ -34,29 +34,18 @@
         <p id="placeName" class="wtj-place-name"></p>
         <p id="placeAddress" class="wtj-place-address"></p>
     </div>
-    <div class="wtj-place-review">
-        <form id="searchForm" action="/places/create" method="post">
-            <h2 class="wtj-photo-review">사진 후기</h2>
-            <span onclick="addPhotos()" class="wtj-photo-review-button">추가하기</span>
-
-            <br>
-
-            <h2 class="wtj-comment-review">댓글 후기</h2>
-            <input type="text" id="comment" name="comment">
-
-            <input th:value="${themeNo}" type="hidden" id="themeNo" name="themeNo">
-            <input type="hidden" id="no" name="no">
-            <input type="hidden" id="name" name="name">
-            <input type="hidden" id="address" name="address">
-            <input type="hidden" id="x" name="x">
-            <input type="hidden" id="y" name="y">
-
-            <input type="file" id="photo" multiple style="display: none;">
-        </form>
-    </div>
+    <form id="searchForm" action="/places/create" method="post" style="display: none;">
+        <input th:value="${themeNo}" type="hidden" id="themeNo" name="themeNo">
+        <input type="hidden" id="no" name="no">
+        <input type="hidden" id="name" name="name">
+        <input type="hidden" id="address" name="address">
+        <input type="hidden" id="phone" name="phone">
+        <input type="hidden" id="x" name="x">
+        <input type="hidden" id="y" name="y">
+    </form>
 </div>
 
-<script src="/js/kakao-map.js"></script>
+<script src="/js/kakao-map-search.js"></script>
 <script src="/js/place-modal.js"></script>
 </body>
 </html>

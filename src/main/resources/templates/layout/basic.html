@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +18,6 @@
         <span style="color: #ffffff">│</span>
         <span onclick="navigateTo('themes')" class="wtj-main-menu">전체 테마 보기</span>
         <span onclick="navigateTo('search')" class="wtj-main-menu">검색</span>
-        <span onclick="navigateTo('ranking')" class="wtj-main-menu">순위</span>
     </div>
     <div onclick="navigateTo('home')" class="wtj-main">
         <span>제주 옵서예</span>
@@ -36,14 +34,13 @@
 
     function navigateTo(page) {
         const urlMapping = {
-            login: '/me/login',
+            login: '/users/login',
             me: '/me',
-            logout: '/me/logout',
+            logout: '/users/logout',
             personal: '/me/themes/personal',
             shared: '/me/themes/shared',
             themes: '/themes',
             search: '/search',
-            ranking: '/ranking',
             home: '/'
         };
 

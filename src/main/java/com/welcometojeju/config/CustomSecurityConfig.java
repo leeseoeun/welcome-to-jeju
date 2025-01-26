@@ -27,20 +27,20 @@ public class CustomSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(authorizeRequests ->
         authorizeRequests
-            .requestMatchers("/me/create", "/me/login", "/me/logout",
+            .requestMatchers("/users/login", "/users/logout", "/users/themes/**",
                 "/themes", "/themes/public", "/themes/collaborate", "/themes/get",
-                "/", "/search/**", "/ranking", "/favicon.ico", "/error",
-                "http://dapi.kakao.com/**").permitAll()
+                "/", "/search/**", "/ranking",
+                "http://dapi.kakao.com/**", "/favicon.ico", "/error").permitAll()
             .anyRequest().authenticated()
     )
         .formLogin(formLogin ->
             formLogin
-                .loginPage("/me/login")
+                .loginPage("/users/login")
                 .permitAll()
     )
         .logout(logout ->
             logout
-                .logoutUrl("/me/logout")
+                .logoutUrl("/users/logout")
                 .logoutSuccessUrl("/")
     );
 
@@ -48,7 +48,7 @@ public class CustomSecurityConfig {
 
     http.oauth2Login(oauth2Login ->
         oauth2Login
-            .loginPage("/me/login")
+            .loginPage("/users/login")
             .successHandler((request, response, authentication) -> {
               // 이전 페이지 URL 세션에서 가져오기
               String prevPage = (String) request.getSession().getAttribute("prevPage");

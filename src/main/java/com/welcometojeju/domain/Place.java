@@ -21,6 +21,9 @@ public class Place extends BaseEntity {
   private String address;
 
   @Column(nullable = false)
+  private String phone;
+
+  @Column(nullable = false)
   private String x;
 
   @Column(nullable = false)

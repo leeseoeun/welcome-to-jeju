@@ -13,7 +13,7 @@
 <div class="wtj-theme-place-container">
     <div class="wtj-menu-container">
         <a th:if="${#authentication.name == 'anonymousUser'}" href="/me/login" class="wtj-menu">로그인</a>
-        <span th:if="${#authentication.name != 'anonymousUser' and isUpdate != 0}" onclick="searchPlaces();" class="wtj-menu">추가할 장소 검색하기</span>
+        <span th:if="${#authentication.name != 'anonymousUser' and isCreate != 0}" onclick="searchPlaces();" class="wtj-menu">추가할 장소 검색하기</span>
         <span onclick="history.back()" class="wtj-menu">뒤로가기</span>
     </div>
     <div class="wtj-theme-container">
@@ -22,17 +22,7 @@
         <div>[[${theme.userNickname}]]</div>
     </div>
     <div class="wtj-place-list-container">
-        <ul class="wtj-place-list">
-            <li>
-                <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-place">
-                    <div>
-                        <div>[[${theme.emoji}]]</div>
-                        <div>[[${theme.title}]]</div>
-                        <div>[[${theme.userNickname}]]</div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+        <ul id="placesList" class="wtj-place-list"></ul>
     </div>
 </div>
 
@@ -42,18 +32,30 @@
     <input th:value="${theme.no}" type="hidden" id="themeNo" name="themeNo">
 </form>
 
-<script>
+<script src="/js/kakao-map-list.js"></script>
+
+<script th:inline="javascript">
     function searchPlaces() {
         document.getElementById('searchForm').submit();
     }
 
-    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    var options = { //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-        level: 10 //지도의 레벨(확대, 축소 정도)
-    };
+    // 마커를 표시할 위치와 title 객체 배열입니다
+    let placeList = [[${theme.placeList}]];
+    console.log(placeList);
 
-    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    if (placeList.length > 0) {
+        let positions = [];
+
+        for (let i = 0; i < placeList.length; i++) {
+            positions.push(placeList[i].placeDTO);
+        }
+
+        console.log(positions);
+
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        displayPlaces(positions);
+    }
 </script>
 </body>
 </html>

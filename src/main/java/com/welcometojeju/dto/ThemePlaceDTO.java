@@ -15,4 +15,6 @@ public class ThemePlaceDTO {
 
   private Integer placeNo;
 
+  private PlaceDTO placeDTO;
+
 }
