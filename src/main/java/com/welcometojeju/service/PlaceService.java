@@ -11,6 +11,8 @@ public interface PlaceService {
   Integer createPlace(PlaceDTO placeDTO, User user);
   Integer createPlaceAndRelations(PlaceDTO placeDTO);
 
+  void deletePlaceAndRelations(Integer no, Integer themeNo, Integer userNo);
+
   default Place dtoToEntity(PlaceDTO placeDTO, User user) {
     Place place = Place.builder()
         .no(placeDTO.getNo())

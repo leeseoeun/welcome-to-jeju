@@ -7,6 +7,8 @@ public interface UserShareThemeService {
 
   void createUserShareTheme(UserShareThemeDTO userShareThemeDTO);
 
+  void deleteUserShareTheme(Integer userNo, Integer themeNo);
+
   boolean existsByUserNoAndThemeNo(Integer userNo, Integer themeNo);
 
   default UserShareTheme dtoToEntity(User user, Theme theme) {

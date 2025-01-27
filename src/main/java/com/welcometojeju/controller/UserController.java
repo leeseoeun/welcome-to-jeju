@@ -35,7 +35,7 @@ public class UserController {
     // 세션에 이전 페이지 정보 저장
     request.getSession().setAttribute("prevPage", prevPage);
 
-    log.info("[login > get > prevPage] " + prevPage);
+    log.info("[login > prevPage] " + prevPage);
 
     return "user/login";
   }

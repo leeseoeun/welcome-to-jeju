@@ -96,3 +96,12 @@ input[type="text"], input[type="email"], input[type="password"] {
 .wtj-sub-title {
     font-weight: normal;
 }
+
+.wtj-icon {
+    text-align: right;
+}
+
+.wtj-icon-image {
+    width: 20px;
+    height: 20px;
+}

@@ -1,10 +1,8 @@
 package com.welcometojeju.controller;
 
-import com.welcometojeju.dto.PlaceDTO;
 import com.welcometojeju.dto.ThemeDTO;
 import com.welcometojeju.dto.UserDTO;
 import com.welcometojeju.security.SecurityUtils;
-import com.welcometojeju.service.PlaceService;
 import com.welcometojeju.service.ThemeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,6 @@ import java.util.List;
 public class ThemeController {
 
   private final ThemeService themeService;
-  private final PlaceService placeService;
   private final SecurityUtils securityUtils;
 
   @GetMapping({"/create", "/update"})
@@ -35,13 +32,13 @@ public class ThemeController {
 
     // 로그인 한 사용자 정보
     UserDTO user = securityUtils.getAuthenticatedUser();
-    log.info("[createTheme > get > user] " + user);
     model.addAttribute("userNickname", user.getNickname());
+    log.info("[createTheme > get > user] " + user);
 
     if (no != null) {
       ThemeDTO theme = themeService.getThemeByNo(no);
-      log.info("[createTheme > theme] " + theme);
       model.addAttribute("theme", theme);
+      log.info("[createTheme > theme] " + theme);
 
       return "theme/update";
     }
@@ -61,8 +58,8 @@ public class ThemeController {
 
     // 로그인 한 사용자 정보
     UserDTO user = securityUtils.getAuthenticatedUser();
-    log.info("[createTheme > post > user] " + user);
     themeDTO.setUserNo(user.getNo());
+    log.info("[createTheme > post > user] " + user);
 
     Integer no = themeService.createTheme(themeDTO);
     log.info("[createTheme > post > no] " + no);
@@ -72,7 +69,7 @@ public class ThemeController {
 
   @GetMapping("/delete")
   public String deleteTheme(Integer no) {
-    log.info("[deleteTheme > get > no] " + no);
+    log.info("[deleteTheme > no] " + no);
 
     themeService.deleteTheme(no);
 
@@ -81,18 +78,26 @@ public class ThemeController {
 
   @GetMapping("/get")
   public String getTheme(Integer no, Model model) {
-    ThemeDTO theme = themeService.getThemeWithPlacesByNo(no);
-    model.addAttribute("theme", theme);
-    log.info("[getTheme > theme] " + theme);
+    log.info("[getTheme > no] " + no);
+
+    ThemeDTO theme = null;
 
     // 로그인 한 사용자 정보
     UserDTO user = securityUtils.getAuthenticatedUser();
+    if (user != null) {
+      theme = themeService.getThemeWithPlacesByNo(no, user.getNo());
+    } else {
+      theme = themeService.getThemeWithPlacesByNo(no, null);
+    }
     log.info("[getTheme > user] " + user);
+
+    model.addAttribute("theme", theme);
+    log.info("[getTheme > theme] " + theme);
 
     // 추가할 장소 검색하기 가능 여부
     int isCreate = (user != null && theme.getIsPublic() == 1 && user.getNo() != theme.getUserNo()) ? 0 : 1;
-    log.info("[getTheme > isCreate] " + isCreate);
     model.addAttribute("isCreate", isCreate);
+    log.info("[getTheme > isCreate] " + isCreate);
 
     return "theme/read";
   }
@@ -101,21 +106,21 @@ public class ThemeController {
   @GetMapping({"", "/{themeType}"})
   public String getAllThemes(@PathVariable(required = false) String themeType, Model model) {
     themeType = themeType == null ? "themes" : themeType;
-    log.info("[getAllThemes > themeType] " + themeType);
     model.addAttribute("themeType", themeType);
+    log.info("[getAllThemes > themeType] " + themeType);
 
     // 모든, 개인 테마일 때
     if (themeType.equals("themes") || themeType.equals("public")) {
       List<ThemeDTO> publicThemes = themeService.getAllPublicThemes();
-      log.info("[getAllThemes > publicThemes] " + publicThemes);
       model.addAttribute("publicThemes", publicThemes);
+      log.info("[getAllThemes > publicThemes] " + publicThemes);
     }
 
     // 모든, 공유 테마일 때
     if (themeType.equals("themes") || themeType.equals("collaborate")) {
       List<ThemeDTO> collaborateThemes = themeService.getAllCollaborateThemes();
-      log.info("[getAllThemes > collaborateThemes] " + collaborateThemes);
       model.addAttribute("collaborateThemes", collaborateThemes);
+      log.info("[getAllThemes > collaborateThemes] " + collaborateThemes);
     }
 
     return "theme/list";

@@ -34,4 +34,6 @@ public class PlaceDTO {
 
   private Integer themeNo;
 
+  private Integer isDelete;
+
 }

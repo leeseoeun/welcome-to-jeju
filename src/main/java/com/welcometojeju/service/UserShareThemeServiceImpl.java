@@ -32,6 +32,11 @@ public class UserShareThemeServiceImpl implements UserShareThemeService {
   }
 
   @Override
+  public void deleteUserShareTheme(Integer userNo, Integer themeNo) {
+    userShareThemeRepository.deleteByUserNoAndThemeNo(userNo, themeNo);
+  }
+
+  @Override
   public boolean existsByUserNoAndThemeNo(Integer userNo, Integer themeNo) {
     return userShareThemeRepository.existsByUserNoAndThemeNo(userNo, themeNo);
   }

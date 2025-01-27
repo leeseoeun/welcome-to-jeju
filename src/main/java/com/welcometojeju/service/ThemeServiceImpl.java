@@ -53,24 +53,39 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
-  public ThemeDTO getThemeWithPlacesByNo(Integer no) {
+  public ThemeDTO getThemeWithPlacesByNo(Integer no, Integer userNo) {
     Optional<Theme> result = themeRepository.findWithPlacesByNo(no);
     Theme theme = result.orElseThrow();
     ThemeDTO themeDTO = entityToDto(theme);
 
     List<ThemePlaceDTO> placeList = theme.getPlaceList().stream()
-        .map(pl -> ThemePlaceDTO.builder()
-            .themeNo(pl.getTheme().getNo())
-            .placeNo(pl.getPlace().getNo())
-            .placeDTO(PlaceDTO.builder()
-                .no(pl.getPlace().getNo())
-                .name(pl.getPlace().getName())
-                .address(pl.getPlace().getAddress())
-                .phone(pl.getPlace().getPhone())
-                .x(pl.getPlace().getX())
-                .y(pl.getPlace().getY())
-                .build())
-            .build()).collect(Collectors.toList());
+        .map(pl -> {
+          // PlaceDTO 생성
+          PlaceDTO placeDTO = PlaceDTO.builder()
+              .no(pl.getPlace().getNo())
+              .name(pl.getPlace().getName())
+              .address(pl.getPlace().getAddress())
+              .phone(pl.getPlace().getPhone())
+              .x(pl.getPlace().getX())
+              .y(pl.getPlace().getY())
+              .userNo(pl.getPlace().getUser().getNo())
+              .build();
+
+          // 조건에 따라 isDelete 설정
+          if (userNo != null && userNo.equals(pl.getPlace().getUser().getNo())) {
+            placeDTO.setIsDelete(1); // isDelete 값을 1로 설정
+          } else {
+            placeDTO.setIsDelete(0);
+          }
+
+          // ThemePlaceDTO 생성
+          return ThemePlaceDTO.builder()
+              .themeNo(pl.getTheme().getNo())
+              .placeNo(pl.getPlace().getNo())
+              .placeDTO(placeDTO)
+              .build();
+        })
+        .collect(Collectors.toList());
 
     themeDTO.setPlaceList(placeList);
 

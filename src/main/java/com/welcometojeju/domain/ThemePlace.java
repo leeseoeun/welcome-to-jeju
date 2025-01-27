@@ -16,11 +16,11 @@ public class ThemePlace extends BaseEntity {
   private Integer no;
 
   @ManyToOne
-  @JoinColumn(name = "theme_id")
+  @JoinColumn(name = "theme_no")
   private Theme theme;
 
   @ManyToOne
-  @JoinColumn(name = "place_id")
+  @JoinColumn(name = "place_no")
   private Place place;
 
 }

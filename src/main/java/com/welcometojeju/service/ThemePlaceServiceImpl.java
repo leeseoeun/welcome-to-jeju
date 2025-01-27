@@ -36,8 +36,18 @@ public class ThemePlaceServiceImpl implements ThemePlaceService {
   }
 
   @Override
+  public void deleteThemePlace(Integer themeNo, Integer placeNo) {
+    themePlaceRepository.deleteByThemeNoAndPlaceNo(themeNo, placeNo);
+  }
+
+  @Override
   public boolean existsByThemeNoAndPlaceNo(Integer themeNo, Integer placeNo) {
     return themePlaceRepository.existsByThemeNoAndPlaceNo(themeNo, placeNo);
+  }
+
+  @Override
+  public boolean existsByThemeNoAndUserNo(Integer themeNo, Integer userNo) {
+    return themePlaceRepository.existsByThemeNoAndUserNo(themeNo, userNo);
   }
 
 }

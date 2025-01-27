@@ -9,10 +9,11 @@ import java.util.List;
 public interface ThemeService {
 
   Integer createTheme(ThemeDTO themeDTO);
+
   void deleteTheme(Integer no);
 
   ThemeDTO getThemeByNo(Integer no);
-  ThemeDTO getThemeWithPlacesByNo(Integer no);
+  ThemeDTO getThemeWithPlacesByNo(Integer no, Integer userNo);
 
   List<ThemeDTO> getAllPublicThemes();
   List<ThemeDTO> getAllCollaborateThemes();

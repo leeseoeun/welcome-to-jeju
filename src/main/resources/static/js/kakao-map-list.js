@@ -65,14 +65,24 @@ function displayPlaces(places) {
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
     var el = document.createElement('li'),
-        itemStr = '<a class="wtj-place">' +
-            '<span class="markerbg-star"></span>' +
-            '<div class="info">' +
-            '<span>' + places.name + '</span>' +
-            '<span>' +  places.address + '</span>' +
-            '<span class="tel">' + places.phone + '</span>' +
-            '</div>' +
-            '</a>';
+        itemStr = '';
+
+    if (places.isDelete == 1) {
+        itemStr += '<div class="wtj-icon">' +
+            '<a href="/places/delete?themeNo=' + themeNo + '&no=' + places.no + '">' +
+            '<img src="/images/delete_icon.png" class="wtj-icon-image">' +
+            '</a>' +
+            '</div>';
+    }
+
+    itemStr += '<a class="wtj-place">' +
+        '<span class="markerbg-star"></span>' +
+        '<div class="info">' +
+        '<span>' + places.name + '</span>' +
+        '<span>' +  places.address + '</span>' +
+        '<span class="tel">' + places.phone + '</span>' +
+        '</div>' +
+        '</a>';
 
     el.innerHTML = itemStr;
     el.className = 'item';
@@ -108,3 +118,4 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
+

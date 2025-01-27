@@ -9,7 +9,10 @@ public interface ThemePlaceService {
 
   void createThemePlace(ThemePlaceDTO themePlaceDTO);
 
+  void deleteThemePlace(Integer themeNo, Integer placeNo);
+
   boolean existsByThemeNoAndPlaceNo(Integer themeNo, Integer placeNo);
+  boolean existsByThemeNoAndUserNo(Integer themeNo, Integer userNo);
 
   default ThemePlace dtoToEntity(Theme theme, Place place) {
     ThemePlace themePlace = ThemePlace.builder()

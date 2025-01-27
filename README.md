@@ -60,3 +60,10 @@
             - ```html
                 <img th:src="@{/image/파일명.확장자}">
                 ```
+
+- 개인 테마 (Personal Theme)
+    - 공개 (Public)
+    - 비공개 (Private)
+- 공유 테마 (Shared Theme)
+    - 공유 (Collaborate)
+    - 참여 (Participate)

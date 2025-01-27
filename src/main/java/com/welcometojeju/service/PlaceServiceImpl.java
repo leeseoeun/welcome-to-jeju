@@ -11,6 +11,7 @@ import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -63,6 +64,18 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     return no;
+  }
+
+  @Transactional
+  @Override
+  public void deletePlaceAndRelations(Integer no, Integer themeNo, Integer userNo) {
+    // 1. Theme-Place 관계 삭제
+    themePlaceService.deleteThemePlace(themeNo, no);
+
+    // 2. User-ShareTheme 관계 삭제 (유저가 테마에 등록한 다른 장소가 없을 경우)
+    if (!themePlaceService.existsByThemeNoAndUserNo(themeNo, userNo)) {
+      userShareThemeService.deleteUserShareTheme(userNo, themeNo);
+    }
   }
 
 }
