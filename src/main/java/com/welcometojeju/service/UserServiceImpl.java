@@ -19,12 +19,21 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
 
   @Override
-  public Integer updateUser(UserDTO userDTO) {
+  public void updateUser(UserDTO userDTO) {
     User user = dtoToEntity(userDTO);
 
-    Integer no = userRepository.save(user).getNo();
+    userRepository.save(user);
+  }
 
-    return no;
+  @Override
+  public void updateViewCount(Integer no) {
+    Optional<User> result = userRepository.findById(no);
+
+    User user = result.orElseThrow();
+
+    user.incrementViewCount();
+
+    userRepository.save(user);
   }
 
   @Override

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface UserService {
 
-  Integer updateUser(UserDTO userDTO);
+  void updateUser(UserDTO userDTO);
+  void updateViewCount(Integer no);
 
   UserDTO getUserByProviderId(String providerId);
 

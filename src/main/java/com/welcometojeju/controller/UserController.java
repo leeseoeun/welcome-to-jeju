@@ -48,12 +48,15 @@ public class UserController {
   // 전체 테마 리스트 (공개, 공유)
   @GetMapping({"/users/themes/get", "/users/themes/{themeType}/get"})
   public String getAllThemesByUserNo(@PathVariable(required = false) String themeType, Integer no, Model model) {
+    model.addAttribute("userNo", no);
+    log.info("[getAllThemesByUserNo > no] " + no);
+
+    // 조회 수 증가
+    userService.updateViewCount(no);
+
     themeType = themeType == null ? "themes" : themeType;
     model.addAttribute("themeType", themeType);
     log.info("[getAllThemesByUserNo > themeType] " + themeType);
-
-    model.addAttribute("userNo", no);
-    log.info("[getAllThemesByUserNo > no] " + no);
 
     // 모든, 개인 테마일 때
     if (themeType.equals("themes") || themeType.equals("public")) {
@@ -80,6 +83,8 @@ public class UserController {
 
     return "/theme/list";
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 
   @GetMapping("/me")
   public String getUser(Model model) {

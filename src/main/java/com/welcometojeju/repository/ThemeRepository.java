@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ThemeRepository extends JpaRepository<Theme, Integer> {
 
-  // Theme 엔티티의 placeList 필드를 로드. placeList 내부에 있는 place 필드를 추가로 로드.
+  // Theme 엔티티의 placeList 필드를 로드. placeList 내부에 있는 place 필드를 추가로 로드
   @EntityGraph(attributePaths = {"placeList", "placeList.place"})
   Optional<Theme> findWithPlacesByNo(Integer no);
 

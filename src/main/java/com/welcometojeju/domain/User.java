@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
-public class User extends BaseEntity implements Comparable<User> {
+public class User extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +39,8 @@ public class User extends BaseEntity implements Comparable<User> {
   @Column(length = 255, nullable = false)
   private String providerId;
 
-  @Override
-  public int compareTo(User user) {
-    return user.viewCount - this.viewCount;
+  public void incrementViewCount() {
+    this.viewCount += 1;
   }
   
 }

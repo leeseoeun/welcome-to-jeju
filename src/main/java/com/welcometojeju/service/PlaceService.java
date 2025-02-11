@@ -27,17 +27,4 @@ public interface PlaceService {
     return place;
   }
 
-  default PlaceDTO entityToDto(Place place) {
-    PlaceDTO placeDTO = PlaceDTO.builder()
-        .no(place.getNo())
-        .name(place.getName())
-        .address(place.getAddress())
-        .x(place.getX())
-        .y(place.getY())
-        .userNo(place.getUser().getNo())
-        .build();
-
-    return placeDTO;
-  }
-
 }

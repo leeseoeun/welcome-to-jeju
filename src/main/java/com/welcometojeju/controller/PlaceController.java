@@ -34,6 +34,7 @@ public class PlaceController {
       return "redirect:/search/place";
     }
 
+    // 로그인 한 사용자 정보
     UserDTO user = securityUtils.getAuthenticatedUser();
     log.info("[createPlace > post > user] " + user);
     placeDTO.setUserNo(user.getNo());
