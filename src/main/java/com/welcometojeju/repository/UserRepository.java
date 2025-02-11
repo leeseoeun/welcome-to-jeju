@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   List<User> findAllByNicknameContaining(String keyword);
 
+  List<User> findTop3ByOrderByViewCountDesc();
+
 }

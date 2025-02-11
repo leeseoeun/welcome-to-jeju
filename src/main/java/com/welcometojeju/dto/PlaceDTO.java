@@ -30,11 +30,11 @@ public class PlaceDTO {
   @NotEmpty
   private String y;
 
-  @NotEmpty
-  private Integer userNo;
-
   @PositiveOrZero
   private int registerCount;
+
+  @NotEmpty
+  private Integer userNo;
 
   private Integer themeNo;
 

@@ -4,9 +4,81 @@
       layout:decorate="~{layout/basic.html}">
 <head>
     <title>제주 옵서예</title>
+    <link rel="stylesheet" th:href="@{/css/theme-list.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" class="wtj-main-container">
+    <div class="wtj-user-theme-place-container">
+        <div>
+            <h2 class="wtj-sub-title">인기 유저</h2>
+
+            <ul class="wtj-theme-list">
+                <li th:each="user : ${users}">
+                    <a th:href="@{/users/themes/get(no=${user.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${user.nickname}]]</div>
+                            <div>[[${user.nickname}]]의 테마 보러 가기</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div>
+            <h2 class="wtj-sub-title">인기 개인 테마</h2>
+
+            <ul class="wtj-theme-list">
+                <li th:each="theme : ${publicThemes}">
+                    <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${theme.emoji}]]</div>
+                            <div>[[${theme.title}]]</div>
+                            <div>[[${theme.userNickname}]]</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div>
+            <h2 class="wtj-sub-title">인기 공유 테마</h2>
+
+            <ul class="wtj-theme-list">
+                <li th:each="theme : ${collaborateThemes}">
+                    <a th:href="@{/themes/get(no=${theme.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${theme.emoji}]]</div>
+                            <div>[[${theme.title}]]</div>
+                            <div>[[${theme.userNickname}]]</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div>
+            <h2 class="wtj-sub-title">인기 장소</h2>
+
+            <ul class="wtj-theme-list">
+                <li th:each="place : ${places}">
+                    <span th:href="@{/themes/get(no=${place.no})}" class="wtj-theme">
+                        <div>
+                            <div>[[${place.name}]]</div>
+                            <div>[[${place.address}]]</div>
+                            <div>[[${place.phone}]]</div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>

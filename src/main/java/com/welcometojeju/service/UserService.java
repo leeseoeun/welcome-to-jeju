@@ -14,6 +14,8 @@ public interface UserService {
 
   List<UserDTO> getAllUsersByKeyword(String keyword);
 
+  List<UserDTO> getTop3UsersByViewCount();
+
   default User dtoToEntity(UserDTO userDTO) {
     User user = User.builder()
         .no(userDTO.getNo())

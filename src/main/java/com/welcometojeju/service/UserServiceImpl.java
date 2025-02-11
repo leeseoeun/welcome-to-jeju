@@ -59,4 +59,14 @@ public class UserServiceImpl implements UserService {
     return users;
   }
 
+  @Override
+  public List<UserDTO> getTop3UsersByViewCount() {
+    List<User> result = userRepository.findTop3ByOrderByViewCountDesc();
+
+    List<UserDTO> users = result.stream()
+        .map(user -> entityToDto(user)).collect(Collectors.toList());
+
+    return users;
+  }
+
 }

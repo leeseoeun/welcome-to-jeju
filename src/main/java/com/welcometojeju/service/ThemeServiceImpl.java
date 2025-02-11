@@ -183,4 +183,24 @@ public class ThemeServiceImpl implements ThemeService {
     return themes;
   }
 
+  @Override
+  public List<ThemeDTO> getTop3PublicThemesByViewCount() {
+    List<Theme> result = themeRepository.findTop3ByIsPublicOrderByViewCountDesc(1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getTop3CollaborateThemesByViewCount() {
+    List<Theme> result = themeRepository.findTop3ByIsShareOrderByViewCountDesc(1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
 }

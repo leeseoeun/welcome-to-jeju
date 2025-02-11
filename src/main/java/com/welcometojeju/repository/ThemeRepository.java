@@ -25,4 +25,7 @@ public interface ThemeRepository extends JpaRepository<Theme, Integer> {
   List<Theme> findAllByTitleContainingAndIsPublic(String keyword, int isPublic);
   List<Theme> findAllByTitleContainingAndIsShare(String keyword, int isShare);
 
+  List<Theme> findTop3ByIsPublicOrderByViewCountDesc(int isPublic);
+  List<Theme> findTop3ByIsShareOrderByViewCountDesc(int isShare);
+
 }

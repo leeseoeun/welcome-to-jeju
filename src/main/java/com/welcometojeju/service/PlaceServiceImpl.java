@@ -2,10 +2,7 @@ package com.welcometojeju.service;
 
 import com.welcometojeju.domain.Place;
 import com.welcometojeju.domain.User;
-import com.welcometojeju.dto.PlaceDTO;
-import com.welcometojeju.dto.ThemeDTO;
-import com.welcometojeju.dto.ThemePlaceDTO;
-import com.welcometojeju.dto.UserShareThemeDTO;
+import com.welcometojeju.dto.*;
 import com.welcometojeju.repository.PlaceRepository;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +10,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -80,6 +79,16 @@ public class PlaceServiceImpl implements PlaceService {
     if (!themePlaceService.existsByThemeNoAndUserNo(themeNo, userNo)) {
       userShareThemeService.deleteUserShareTheme(userNo, themeNo);
     }
+  }
+
+  @Override
+  public List<PlaceDTO> getTop3PlacesByRegisterCount() {
+    List<Place> result = placeRepository.findTop3ByOrderByRegisterCountDesc();
+
+    List<PlaceDTO> places = result.stream()
+        .map(place -> entityToDto(place)).collect(Collectors.toList());
+
+    return places;
   }
 
 }
