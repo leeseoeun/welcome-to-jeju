@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Theme extends BaseEntity implements Comparable<Theme> {
+public class Theme extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +40,8 @@ public class Theme extends BaseEntity implements Comparable<Theme> {
   @OneToMany(mappedBy = "theme")
   private List<ThemePlace> placeList = new ArrayList<>();
 
-  @Override
-  public int compareTo(Theme theme) {
-    return theme.viewCount - this.viewCount;
+  public void incrementViewCount() {
+    this.viewCount += 1;
   }
 
 }

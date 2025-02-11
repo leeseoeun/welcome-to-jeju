@@ -10,6 +10,8 @@ public interface ThemeService {
 
   Integer createTheme(ThemeDTO themeDTO);
 
+  void updateViewCount(Integer no);
+
   void deleteTheme(Integer no);
 
   ThemeDTO getThemeByNo(Integer no);

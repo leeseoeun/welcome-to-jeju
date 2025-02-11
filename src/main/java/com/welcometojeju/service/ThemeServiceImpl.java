@@ -37,6 +37,17 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
+  public void updateViewCount(Integer no) {
+    Optional<Theme> result = themeRepository.findById(no);
+
+    Theme theme = result.orElseThrow();
+
+    theme.incrementViewCount();
+
+    themeRepository.save(theme);
+  }
+
+  @Override
   public void deleteTheme(Integer no) {
     themeRepository.deleteById(no);
   }

@@ -80,6 +80,9 @@ public class ThemeController {
   public String getTheme(Integer no, Model model) {
     log.info("[getTheme > no] " + no);
 
+    // 조회 수 증가
+    themeService.updateViewCount(no);
+
     ThemeDTO theme = null;
 
     // 로그인 한 사용자 정보
