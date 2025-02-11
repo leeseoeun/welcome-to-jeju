@@ -21,6 +21,7 @@ public interface PlaceService {
         .x(placeDTO.getX())
         .y(placeDTO.getY())
         .phone(placeDTO.getPhone())
+        .registerCount(placeDTO.getRegisterCount())
         .user(user)
         .build();
 

@@ -42,8 +42,8 @@ public class PlaceServiceImpl implements PlaceService {
     Integer userNo = placeDTO.getUserNo();
     Integer themeNo = placeDTO.getThemeNo();
 
-    Optional<User> result = userRepository.findById(userNo);
-    User user = result.orElseThrow();
+    Optional<User> userResult = userRepository.findById(userNo);
+    User user = userResult.orElseThrow();
 
     // 1. Place 저장
     if (!placeRepository.existsByNo(placeNo)) {
@@ -52,6 +52,10 @@ public class PlaceServiceImpl implements PlaceService {
 
     // 2. Theme-Place 관계 저장
     if (!themePlaceService.existsByThemeNoAndPlaceNo(themeNo, placeNo)) {
+      Optional<Place> placeResult = placeRepository.findById(placeNo);
+      Place place = placeResult.orElseThrow();
+      place.incrementRegisterCount();
+
       ThemePlaceDTO themePlaceDTO = new ThemePlaceDTO(themeNo, placeNo, placeDTO);
       themePlaceService.createThemePlace(themePlaceDTO);
     }

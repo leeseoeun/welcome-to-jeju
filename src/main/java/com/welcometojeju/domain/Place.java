@@ -29,8 +29,15 @@ public class Place extends BaseEntity {
   @Column(nullable = false)
   private String y;
 
+  @Builder.Default
+  private int registerCount = 0;
+
   @ManyToOne
   @JoinColumn(name = "user_no")
   private User user;
+
+  public void incrementRegisterCount() {
+    this.registerCount += 1;
+  }
 
 }
