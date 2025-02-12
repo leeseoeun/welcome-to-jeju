@@ -17,9 +17,9 @@
             <a th:if="${#authentication.name != 'anonymousUser'}" href="/themes/create" class="wtj-menu wtj-menu-create">테마 만들기</a>
         </div>
         <div th:if="${userNo != null}" class="wtj-menu-list">
-            <a th:href="@{/users/themes/get(no=${userNo})}" class="wtj-menu">모든 테마</a>
-            <a th:href="@{/users/themes/public/get(no=${userNo})}" class="wtj-menu">개인 테마</a>
-            <a th:href="@{/users/themes/collaborate/get(no=${userNo})}" class="wtj-menu">공유 테마</a>
+            <a th:href="@{/users/{userNo}/themes(userNo=${userNo})}" class="wtj-menu">모든 테마</a>
+            <a th:href="@{/users/{userNo}/themes/public(userNo=${userNo})}" class="wtj-menu">개인 테마</a>
+            <a th:href="@{/users/{userNo}/themes/collaborate(userNo=${userNo})}" class="wtj-menu">공유 테마</a>
             <a th:if="${isCreate != 0}" href="/themes/create" class="wtj-menu wtj-menu-create">테마 만들기</a>
         </div>
 

@@ -27,9 +27,9 @@ public class CustomSecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(authorizeRequests ->
         authorizeRequests
-            .requestMatchers("/users/login", "/users/logout", "/users/themes/**",
+            .requestMatchers("/users/**",
                 "/themes", "/themes/public", "/themes/collaborate", "/themes/get",
-                "/", "/search/**", "/ranking",
+                "/", "/search/**",
                 "http://dapi.kakao.com/**", "/favicon.ico", "/error").permitAll()
             .anyRequest().authenticated()
     )

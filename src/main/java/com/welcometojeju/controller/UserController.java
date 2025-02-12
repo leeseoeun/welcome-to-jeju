@@ -46,8 +46,9 @@ public class UserController {
   }
 
   // 전체 테마 리스트 (공개, 공유)
-  @GetMapping({"/users/themes/get", "/users/themes/{themeType}/get"})
-  public String getAllThemesByUserNo(@PathVariable(required = false) String themeType, Integer no, Model model) {
+  @GetMapping({"/users/{userNo}/themes", "/users/{userNo}/themes/{themeType}"})
+  public String getAllThemesByUserNo(@PathVariable String userNo, @PathVariable(required = false) String themeType, Model model) {
+    Integer no = Integer.parseInt(userNo);
     model.addAttribute("userNo", no);
     log.info("[getAllThemesByUserNo > no] " + no);
 
