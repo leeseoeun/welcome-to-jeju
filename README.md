@@ -14,6 +14,11 @@
 
 <br>
 
+### 데이터베이스 모델링
+<img src="./images/erd.PNG" style="border: solid 1px">
+
+<br>
+
 ### 구현 기능
 - **로그인, 로그아웃**
     - Spring Security를 활용한 인증 구현
@@ -48,8 +53,3 @@
 |<img src="./images/place_list.PNG">|
 |▽ 장소 검색|
 |<img src="./images/place_search_list.PNG">|
-
-<br>
-
-### 데이터베이스 모델링
-<img src="./images/erd.PNG" style="border: solid 1px">
