@@ -15,7 +15,7 @@
 
             <ul class="wtj-theme-list">
                 <li th:each="user : ${users}">
-                    <a th:href="@{/users/themes/get(no=${user.no})}" class="wtj-theme">
+                    <a th:href="@{/users/{userNo}/themes(userNo=${user.no})}" class="wtj-theme">
                         <div>
                             <div>[[${user.nickname}]]</div>
                             <div>[[${user.nickname}]]의 테마 보러 가기</div>
