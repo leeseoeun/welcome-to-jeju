@@ -15,11 +15,11 @@ public class UserShareTheme extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_no")
   private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "theme_no")
   private Theme theme;
 

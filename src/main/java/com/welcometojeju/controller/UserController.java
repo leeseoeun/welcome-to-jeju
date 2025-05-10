@@ -82,7 +82,7 @@ public class UserController {
     model.addAttribute("isCreate", isCreate);
     log.info("[getAllThemesByUserNo > isCreate] " + isCreate);
 
-    return "/theme/list";
+    return "theme/list";
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////

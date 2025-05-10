@@ -24,7 +24,7 @@ public class Theme extends BaseEntity {
   @Column(length = 100, nullable = false)
   private String title;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_no")
   private User user;
 

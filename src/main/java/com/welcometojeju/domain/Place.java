@@ -32,7 +32,7 @@ public class Place extends BaseEntity {
   @Builder.Default
   private int registerCount = 0;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_no")
   private User user;
 

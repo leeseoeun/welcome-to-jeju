@@ -15,11 +15,11 @@ public class ThemePlace extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "theme_no")
   private Theme theme;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "place_no")
   private Place place;
 
