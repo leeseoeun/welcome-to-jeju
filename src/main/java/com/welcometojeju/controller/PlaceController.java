@@ -3,17 +3,16 @@ package com.welcometojeju.controller;
 import com.welcometojeju.dto.*;
 import com.welcometojeju.security.SecurityUtils;
 import com.welcometojeju.service.PlaceService;
-import com.welcometojeju.service.ThemePlaceService;
-import com.welcometojeju.service.ThemeService;
-import com.welcometojeju.service.UserShareThemeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,7 +45,8 @@ public class PlaceController {
   }
 
   @GetMapping("/delete")
-  public String deletePlace(Integer no, Integer themeNo) {
+  @ResponseBody
+  public ResponseEntity<Void> deletePlace(Integer no, Integer themeNo) {
     log.info("[deletePlace > no] " + no);
     log.info("[deletePlace > themeNo] " + themeNo);
 
@@ -56,7 +56,7 @@ public class PlaceController {
 
     placeService.deletePlaceAndRelations(no, themeNo, user.getNo());
 
-    return "redirect:/themes/get?no=" + themeNo;
+    return ResponseEntity.ok().build();
   }
 
 }

@@ -43,7 +43,6 @@
 
     // 마커를 표시할 위치와 title 객체 배열입니다
     let placeList = [[${theme.placeList}]];
-    console.log(placeList);
 
     if (placeList.length > 0) {
         let positions = [];
@@ -52,11 +51,32 @@
             positions.push(placeList[i].placeDTO);
         }
 
-        console.log(positions);
-
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(positions);
+    }
+
+    function deletePlace(themeNo, placeNo) {
+        fetch('/places/delete?themeNo=' + themeNo + '&no=' + placeNo, { method: 'GET' })
+            .then(res => {
+                if (res.ok) {
+                    // 1. 마커 제거
+                    if (markers[placeNo]) {
+                        markers[placeNo].setMap(null);  // 지도에서 제거
+                        delete markers[placeNo];        // 캐시에서도 제거
+                    }
+
+                    // 2. DOM 요소 제거
+                    const li = document.getElementById(placeNo);
+                    li.remove();
+                } else {
+                    alert("장소 삭제 중 오류가 발생했습니다.");
+                }
+            })
+            .catch(err => {
+                alert("장소 삭제 중 오류가 발생했습니다.");
+                console.log(err);
+            });
     }
 </script>
 </body>

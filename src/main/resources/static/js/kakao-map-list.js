@@ -24,7 +24,7 @@ function displayPlaces(places) {
 
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-            marker = addMarker(placePosition, i),
+            marker = addMarker(placePosition, places[i].no),
             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -69,7 +69,7 @@ function getListItem(index, places) {
 
     if (places.isDelete == 1) {
         itemStr += '<div class="wtj-icon">' +
-            '<a href="/places/delete?themeNo=' + themeNo + '&no=' + places.no + '">' +
+            '<a onclick="deletePlace(' + themeNo + ', ' + places.no + ')">' +
             '<img src="/images/delete_icon.png" class="wtj-icon-image">' +
             '</a>' +
             '</div>';
@@ -85,13 +85,14 @@ function getListItem(index, places) {
         '</a>';
 
     el.innerHTML = itemStr;
+    el.id = places.no;
     el.className = 'item';
 
     return el;
 }
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-function addMarker(position, idx, title) {
+function addMarker(position, placeNo) {
     // 마커 이미지의 이미지 주소입니다
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
         // 마커 이미지의 이미지 크기 입니다
@@ -105,7 +106,7 @@ function addMarker(position, idx, title) {
         });
 
     marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+    markers[placeNo] = marker;  // 배열에 생성된 마커를 추가합니다
 
     return marker;
 }
@@ -118,4 +119,3 @@ function displayInfowindow(marker, title) {
     infowindow.setContent(content);
     infowindow.open(map, marker);
 }
-
