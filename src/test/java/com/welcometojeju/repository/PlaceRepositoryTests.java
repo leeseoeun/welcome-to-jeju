@@ -30,14 +30,14 @@ public class PlaceRepositoryTests {
     Optional<User> userResult = userRepository.findById(1);
     User user = userResult.orElseThrow();
 
-    IntStream.rangeClosed(1, 1000).forEach(i -> {
+    IntStream.rangeClosed(1, 3000).forEach(i -> {
       Place place = Place.builder()
           .no(i)
           .name("name" + i)
           .address("address" + i)
           .phone("phone" + i)
-          .x(String.valueOf(126.51586040620134 + 0.1))
-          .y(String.valueOf(33.23751957595788 + 0.1))
+          .x(String.valueOf(126.51586040620134 + (i * 0.0001)))
+          .y(String.valueOf(33.23751957595788 + (i * 0.0001)))
           .registerCount(0)
           .user(user)
           .build();
