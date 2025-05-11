@@ -14,6 +14,7 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
+    performance.mark('marker-render-start'); // 시작 시점 기록
 
     var listEl = document.getElementById('placesList'),
         fragment = document.createDocumentFragment(),
@@ -60,6 +61,16 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
+
+    performance.mark('marker-render-end'); // 종료 시점 기록
+    performance.measure('marker-render', 'marker-render-start', 'marker-render-end');
+
+    const duration = performance.getEntriesByName('marker-render')[0].duration;
+
+    console.log('마커 개수 : ', places.length);
+    console.log('DOM에 추가된 <li> 개수 : ', document.querySelectorAll('#placesList .item').length);
+    console.log('총 마커 객체 수 : ', Object.keys(markers).length);
+    console.log(`프레임 분산 방식 적용 전 마커 렌더링 시간 : ${duration.toFixed(2)}ms`);
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
