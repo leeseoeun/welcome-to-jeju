@@ -16,6 +16,8 @@ import org.springframework.web.servlet.View;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,15 +28,18 @@ public class HomeController {
   private final UserService userService;
   private final ThemeService themeService;
   private final PlaceService placeService;
-  private final View error;
 
   @GetMapping
   public String home(Model model) {
     long beforeTime = System.currentTimeMillis();
 
+    // 공용 ForkJoinPool 사용 시 스레드 부족으로 인한 병목이 발생할 수 있기 때문에 고정 크기 스레드 풀 사용
+    int threadCount = 50; // 스레드 수 = 스레드 수 = (응답 시간 / 처리 시간) * CPU 수
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(threadCount);  //
+
     // 병렬로 여러 작업 수행 후 결과를 모아야 하기 때문에 CompletableFuture 사용
     CompletableFuture<List<UserDTO>> users =
-        CompletableFuture.supplyAsync(() -> userService.getTop3UsersByViewCount())
+        CompletableFuture.supplyAsync(() -> userService.getTop3UsersByViewCount(), fixedThreadPool)
             .whenComplete((result, error) -> {
               if (error == null) {
                 model.addAttribute("users", result);
@@ -45,7 +50,7 @@ public class HomeController {
             });
 
     CompletableFuture<List<ThemeDTO>> publicThemes =
-        CompletableFuture.supplyAsync(() -> themeService.getTop3PublicThemesByViewCount())
+        CompletableFuture.supplyAsync(() -> themeService.getTop3PublicThemesByViewCount(), fixedThreadPool)
             .whenComplete((result, error) -> {
               if (error == null) {
                 model.addAttribute("publicThemes", result);
@@ -56,7 +61,7 @@ public class HomeController {
             });
 
     CompletableFuture<List<ThemeDTO>> collaborateThemes =
-        CompletableFuture.supplyAsync(() -> themeService.getTop3CollaborateThemesByViewCount())
+        CompletableFuture.supplyAsync(() -> themeService.getTop3CollaborateThemesByViewCount(), fixedThreadPool)
             .whenComplete((result, error) -> {
               if (error == null) {
                 model.addAttribute("collaborateThemes", result);
@@ -67,7 +72,7 @@ public class HomeController {
             });
 
     CompletableFuture<List<PlaceDTO>> places =
-        CompletableFuture.supplyAsync(() -> placeService.getTop3PlacesByRegisterCount())
+        CompletableFuture.supplyAsync(() -> placeService.getTop3PlacesByRegisterCount(), fixedThreadPool)
             .whenComplete((result, error) -> {
               if (error == null) {
                 model.addAttribute("places", result);
