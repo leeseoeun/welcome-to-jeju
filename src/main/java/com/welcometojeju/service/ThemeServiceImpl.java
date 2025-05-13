@@ -10,6 +10,7 @@ import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -184,6 +185,7 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
+  @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3PublicThemesByViewCount() {
     List<Theme> result = themeRepository.findTop3ByIsPublicOrderByViewCountDesc(1);
 
@@ -194,6 +196,7 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
+  @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3CollaborateThemesByViewCount() {
     List<Theme> result = themeRepository.findTop3ByIsShareOrderByViewCountDesc(1);
 
