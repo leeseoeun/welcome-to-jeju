@@ -6,7 +6,6 @@ import com.welcometojeju.dto.*;
 import com.welcometojeju.repository.PlaceRepository;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
 public class PlaceServiceImpl implements PlaceService {
 
   private final PlaceRepository placeRepository;
@@ -24,6 +22,7 @@ public class PlaceServiceImpl implements PlaceService {
   private final ThemeService themeService;
   private final ThemePlaceService themePlaceService;
   private final UserShareThemeService userShareThemeService;
+  private final NotificationService notificationService;
 
   @Override
   public Integer createPlace(PlaceDTO placeDTO, User user) {
@@ -44,6 +43,8 @@ public class PlaceServiceImpl implements PlaceService {
     Optional<User> userResult = userRepository.findById(userNo);
     User user = userResult.orElseThrow();
 
+    ThemeDTO themeDTO = themeService.getThemeByNo(themeNo);
+
     // 1. Place 저장
     if (!placeRepository.existsByNo(placeNo)) {
       no = createPlace(placeDTO, user);
@@ -57,11 +58,13 @@ public class PlaceServiceImpl implements PlaceService {
 
       ThemePlaceDTO themePlaceDTO = new ThemePlaceDTO(themeNo, placeNo, placeDTO);
       themePlaceService.createThemePlace(themePlaceDTO);
+
+      // 장소 등록 알림 발신
+      notificationService.notifyPlaceRegistered(new NotificationDTO(themeDTO.getTitle()));
     }
 
     // 3. User-ShareTheme 관계 저장
-    ThemeDTO theme = themeService.getThemeByNo(themeNo);
-    if (theme.getIsShare() == 1 && userNo != theme.getUserNo() && !userShareThemeService.existsByUserNoAndThemeNo(userNo, themeNo)) {
+    if (themeDTO.getIsShare() == 1 && userNo != themeDTO.getUserNo() && !userShareThemeService.existsByUserNoAndThemeNo(userNo, themeNo)) {
       UserShareThemeDTO userShareThemeDTO = new UserShareThemeDTO(userNo, themeNo);
       userShareThemeService.createUserShareTheme(userShareThemeDTO);
     }
