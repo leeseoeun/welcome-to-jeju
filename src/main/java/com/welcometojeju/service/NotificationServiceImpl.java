@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NotificationServiceImpl implements NotificationService {
 
-  private final RedisPublisher redisPublisher;
+  private final RedisService redisService;
+//  private final RedisPublisher redisPublisher;
 
   @Override
   public void notifyPlaceRegistered(NotificationDTO notificationDTO) {
-    redisPublisher.publish(notificationDTO);
+
+    redisService.publish(notificationDTO);
+//    redisPublisher.publish(notificationDTO);
   }
 
 }

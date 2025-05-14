@@ -53,13 +53,14 @@ public class RedisConfig {
   @Bean
   public RedisMessageListenerContainer redisMessageListenerContainer(
       RedisConnectionFactory redisConnectionFactory,
-      RedisSubscriber redisSubscriber,
+      RedisSubscriber redisSubscriber
 //      MessageListenerAdapter messageListenerAdapter,
-      ChannelTopic channelTopic
+//      ChannelTopic channelTopic
   ) {
     RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(redisConnectionFactory); // Redis 연결 설정
-    container.addMessageListener(redisSubscriber, channelTopic);
+    container.addMessageListener(redisSubscriber, new ChannelTopic(RedisChannel.NOTIFICATION.getTopic()));
+    //    container.addMessageListener(redisSubscriber, channelTopic);
 //    container.addMessageListener(messageListenerAdapter, channelTopic); // 메시지 리스너-채널 연결
 
     return container;
@@ -72,9 +73,9 @@ public class RedisConfig {
 //    return new MessageListenerAdapter(redisSubscriber, "onMessage");
 //  }
 
-  @Bean
-  public ChannelTopic channelTopic() {
-    return new ChannelTopic(RedisChannel.NOTIFICATION.getTopic());
-  }
+//  @Bean
+//  public ChannelTopic channelTopic() {
+//    return new ChannelTopic(RedisChannel.NOTIFICATION.getTopic());
+//  }
 
 }
