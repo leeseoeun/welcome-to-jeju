@@ -29,9 +29,6 @@
 <div layout:fragment="content"></div>
 
 <script th:inline="javascript">
-    const auth = [[${#authentication}]];
-    console.log(auth);
-
     function navigateTo(page) {
         const urlMapping = {
             login: '/users/login',
@@ -45,6 +42,25 @@
         };
 
         window.location.href = urlMapping[page];
+    }
+
+    const auth = [[${#authentication}]];
+    console.log(auth);
+
+    // SSE 연결 설정
+    if (auth.name != 'anonymousUser') {
+        const eventSource = new EventSource('/sse/subscribe');
+
+        eventSource.addEventListener('notification', function (event) {
+            const data = JSON.parse(event.data);
+            console.log('알림 수신 : ', data);
+
+            alert(data.message);
+        });
+
+        eventSource.onerror = function (error) {
+            console.error('SSE 연결 오류 : ', error);
+        };
     }
 </script>
 </body>

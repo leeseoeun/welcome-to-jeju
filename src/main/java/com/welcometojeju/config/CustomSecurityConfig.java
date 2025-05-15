@@ -30,7 +30,8 @@ public class CustomSecurityConfig {
             .requestMatchers("/users/**",
                 "/themes", "/themes/public", "/themes/collaborate", "/themes/get",
                 "/", "/search/**",
-                "http://dapi.kakao.com/**", "/favicon.ico", "/error").permitAll()
+                "http://dapi.kakao.com/**", "/sse/subscribe",
+                "/favicon.ico", "/error").permitAll()
             .anyRequest().authenticated()
     )
         .formLogin(formLogin ->

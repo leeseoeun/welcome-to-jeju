@@ -60,7 +60,7 @@ public class PlaceServiceImpl implements PlaceService {
       themePlaceService.createThemePlace(themePlaceDTO);
 
       // 장소 등록 알림 발신
-      notificationService.notifyPlaceRegistered(new NotificationDTO(themeDTO.getTitle()));
+      notificationService.notifyPlaceRegistered(new NotificationDTO(themeDTO.getTitle(), themeDTO.getUserNo()));
     }
 
     // 3. User-ShareTheme 관계 저장
