@@ -11,13 +11,16 @@ import org.hibernate.annotations.DynamicUpdate;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
+@Table(name = "user", indexes = {
+    @Index(name = "idx_email", columnList = "email", unique = true)
+})
 public class User extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer no;
 
-  @Column(length = 255, nullable = false)
+  @Column(length = 255, nullable = false, unique = true)
   private String email;
 
   @Column(length = 60, nullable = false)
@@ -42,5 +45,5 @@ public class User extends BaseEntity {
   public void incrementViewCount() {
     this.viewCount += 1;
   }
-  
+
 }
