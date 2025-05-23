@@ -6,6 +6,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 public interface SseEmitterService {
 
   SseEmitter createSseEmitter(Integer userNo);
+
   void sendToUser(NotificationDTO notificationDTO);
 
 }

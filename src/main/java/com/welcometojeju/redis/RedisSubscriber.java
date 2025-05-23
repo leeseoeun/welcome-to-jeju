@@ -36,8 +36,4 @@ public class RedisSubscriber implements MessageListener {
     sseEmitterService.sendToUser(notificationDTO);
   }
 
-//  public void onMessage(Object message) {
-//    log.info("[subscriber > message] {}", message);
-//  }
-
 }

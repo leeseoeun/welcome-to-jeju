@@ -5,7 +5,6 @@ import com.welcometojeju.redis.RedisChannel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +16,8 @@ public class RedisServiceImpl implements RedisService {
 
   @Override
   public void publish(NotificationDTO notificationDTO) {
-//    log.info("[publish > topic] {}", channelTopic.getTopic());
     log.info("[publish > message] {}", notificationDTO.getMessage());
 
-//    redisTemplate.convertAndSend(channelTopic.getTopic(), notificationDTO);
     redisTemplate.convertAndSend(RedisChannel.NOTIFICATION.getTopic(), notificationDTO);
   }
 

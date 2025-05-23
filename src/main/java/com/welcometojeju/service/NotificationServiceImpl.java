@@ -1,7 +1,6 @@
 package com.welcometojeju.service;
 
 import com.welcometojeju.dto.NotificationDTO;
-import com.welcometojeju.redis.RedisPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +9,11 @@ import org.springframework.stereotype.Service;
 public class NotificationServiceImpl implements NotificationService {
 
   private final RedisService redisService;
-//  private final RedisPublisher redisPublisher;
 
   @Override
   public void notifyPlaceRegistered(NotificationDTO notificationDTO) {
 
     redisService.publish(notificationDTO);
-//    redisPublisher.publish(notificationDTO);
   }
 
 }

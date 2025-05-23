@@ -21,7 +21,7 @@ public class SseController {
   private final SecurityUtils securityUtils;
 
   // produces : 반환 데이터 형식
-  // TEXT_EVENT_STREAM_VALUE: SSE 전용 MIME 타입
+  // TEXT_EVENT_STREAM_VALUE : SSE 전용 MIME 타입
   @GetMapping(value = "/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public SseEmitter subscribe() {
     UserDTO userDTO = securityUtils.getAuthenticatedUser();
