@@ -22,10 +22,23 @@ public interface ThemeRepository extends JpaRepository<Theme, Integer> {
   @Query("SELECT t FROM Theme t JOIN UserShareTheme ust ON t.no = ust.theme.no WHERE ust.user.no = :userNo")
   List<Theme> findAllParticipateThemesByUserNo(Integer userNo);
 
-  List<Theme> findAllByTitleContainingAndIsPublic(String keyword, int isPublic);
-  List<Theme> findAllByTitleContainingAndIsShare(String keyword, int isShare);
-
   List<Theme> findTop3ByIsPublicOrderByViewCountDesc(int isPublic);
   List<Theme> findTop3ByIsShareOrderByViewCountDesc(int isShare);
+
+  @Query(value = "SELECT * FROM ( " +
+      "  SELECT * FROM theme " +
+      "  WHERE MATCH(title) AGAINST (?1 IN BOOLEAN MODE) " +
+      ") AS ft_result " +
+      "WHERE is_public = ?2",
+      nativeQuery = true)
+  List<Theme> searchByTitleAndIsPublic(String keyword, int isPublic);
+
+  @Query(value = "SELECT * FROM ( " +
+      "  SELECT * FROM theme " +
+      "  WHERE MATCH(title) AGAINST (?1 IN BOOLEAN MODE) " +
+      ") AS ft_result " +
+      "WHERE is_share = ?2",
+      nativeQuery = true)
+  List<Theme> searchByTitleAndIsShare(String keyword, int isShare);
 
 }

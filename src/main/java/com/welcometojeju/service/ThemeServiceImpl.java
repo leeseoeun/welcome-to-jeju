@@ -165,26 +165,6 @@ public class ThemeServiceImpl implements ThemeService {
   }
 
   @Override
-  public List<ThemeDTO> getAllPublicThemesByKeyword(String keyword) {
-    List<Theme> result = themeRepository.findAllByTitleContainingAndIsPublic(keyword, 1);
-
-    List<ThemeDTO> themes = result.stream()
-        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
-
-    return themes;
-  }
-
-  @Override
-  public List<ThemeDTO> getAllCollaborateThemesByKeyword(String keyword) {
-    List<Theme> result = themeRepository.findAllByTitleContainingAndIsShare(keyword, 1);
-
-    List<ThemeDTO> themes = result.stream()
-        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
-
-    return themes;
-  }
-
-  @Override
   @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3PublicThemesByViewCount() {
     List<Theme> result = themeRepository.findTop3ByIsPublicOrderByViewCountDesc(1);
@@ -199,6 +179,30 @@ public class ThemeServiceImpl implements ThemeService {
   @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3CollaborateThemesByViewCount() {
     List<Theme> result = themeRepository.findTop3ByIsShareOrderByViewCountDesc(1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getAllPublicThemesByKeyword(String keyword) {
+    keyword += "*";
+
+    List<Theme> result = themeRepository.searchByTitleAndIsPublic(keyword, 1);
+
+    List<ThemeDTO> themes = result.stream()
+        .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    return themes;
+  }
+
+  @Override
+  public List<ThemeDTO> getAllCollaborateThemesByKeyword(String keyword) {
+    keyword += "*";
+
+    List<Theme> result = themeRepository.searchByTitleAndIsShare(keyword, 1);
 
     List<ThemeDTO> themes = result.stream()
         .map(theme -> entityToDto(theme)).collect(Collectors.toList());

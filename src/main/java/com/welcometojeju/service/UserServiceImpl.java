@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDTO> getAllUsersByKeyword(String keyword) {
-    List<User> result = userRepository.findAllByNicknameContaining(keyword);
+  public List<UserDTO> getTop3UsersByViewCount() {
+    List<User> result = userRepository.findTop3ByOrderByViewCountDesc();
 
     List<UserDTO> users = result.stream()
         .map(user -> entityToDto(user)).collect(Collectors.toList());
@@ -60,8 +60,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDTO> getTop3UsersByViewCount() {
-    List<User> result = userRepository.findTop3ByOrderByViewCountDesc();
+  public List<UserDTO> getAllUsersByKeyword(String keyword) {
+    keyword += "*";
+
+    List<User> result = userRepository.searchByNickname(keyword);
 
     List<UserDTO> users = result.stream()
         .map(user -> entityToDto(user)).collect(Collectors.toList());
