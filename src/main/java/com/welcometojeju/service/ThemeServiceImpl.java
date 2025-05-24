@@ -5,6 +5,7 @@ import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.PlaceDTO;
 import com.welcometojeju.dto.ThemeDTO;
 import com.welcometojeju.dto.ThemePlaceDTO;
+import com.welcometojeju.redis.RedisCacheKey;
 import com.welcometojeju.repository.ThemeRepository;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class ThemeServiceImpl implements ThemeService {
 
   private final ThemeRepository themeRepository;
   private final UserRepository userRepository;
+  private final RedisService redisService;
 
   @Override
   public Integer createTheme(ThemeDTO themeDTO) {
@@ -46,6 +48,10 @@ public class ThemeServiceImpl implements ThemeService {
     theme.incrementViewCount();
 
     themeRepository.save(theme);
+
+    // 캐시 무효화
+    redisService.evictCache(RedisCacheKey.TOP_PUBLIC_THEMES);
+    redisService.evictCache(RedisCacheKey.TOP_COLLABORATE_THEMES);
   }
 
   @Override
@@ -167,10 +173,19 @@ public class ThemeServiceImpl implements ThemeService {
   @Override
   @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3PublicThemesByViewCount() {
+    // 캐시에서 먼저 조회
+    List<ThemeDTO> cached = redisService.getListCache(RedisCacheKey.TOP_PUBLIC_THEMES, ThemeDTO.class);
+
+    if (cached != null) return cached;
+
+    // 없으면 데이터베이스에서 조회
     List<Theme> result = themeRepository.findTop3ByIsPublicOrderByViewCountDesc(1);
 
     List<ThemeDTO> themes = result.stream()
         .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    // 캐시에 저장
+    redisService.setCache(RedisCacheKey.TOP_PUBLIC_THEMES, themes);
 
     return themes;
   }
@@ -178,10 +193,19 @@ public class ThemeServiceImpl implements ThemeService {
   @Override
   @Transactional(readOnly = true) // LAZY 관계(user.nickname)에 접근해야 되기 때문에
   public List<ThemeDTO> getTop3CollaborateThemesByViewCount() {
+    // 캐시에서 먼저 조회
+    List<ThemeDTO> cached = redisService.getListCache(RedisCacheKey.TOP_COLLABORATE_THEMES, ThemeDTO.class);
+
+    if (cached != null) return cached;
+
+    // 없으면 데이터베이스에서 조회
     List<Theme> result = themeRepository.findTop3ByIsShareOrderByViewCountDesc(1);
 
     List<ThemeDTO> themes = result.stream()
         .map(theme -> entityToDto(theme)).collect(Collectors.toList());
+
+    // 캐시에 저장
+    redisService.setCache(RedisCacheKey.TOP_COLLABORATE_THEMES, themes);
 
     return themes;
   }

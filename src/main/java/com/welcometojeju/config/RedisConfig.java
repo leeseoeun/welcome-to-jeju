@@ -42,8 +42,17 @@ public class RedisConfig {
   public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
     RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(redisConnectionFactory);
+
     redisTemplate.setKeySerializer(new StringRedisSerializer());
-    redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer()); // new Jackson2JsonRedisSerializer<>(Object.class)
+    redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+
+    GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+    redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);  // new Jackson2JsonRedisSerializer<>(Object.class)
+    redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+    redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
+
+    // 프로퍼티 설정 완료 후 초기화 호출
+    redisTemplate.afterPropertiesSet();
 
     return redisTemplate;
   }

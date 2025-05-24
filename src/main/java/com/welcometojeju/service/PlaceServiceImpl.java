@@ -3,6 +3,7 @@ package com.welcometojeju.service;
 import com.welcometojeju.domain.Place;
 import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.*;
+import com.welcometojeju.redis.RedisCacheKey;
 import com.welcometojeju.repository.PlaceRepository;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class PlaceServiceImpl implements PlaceService {
   private final ThemePlaceService themePlaceService;
   private final UserShareThemeService userShareThemeService;
   private final NotificationService notificationService;
+  private final RedisService redisService;
 
   @Override
   public Integer createPlace(PlaceDTO placeDTO, User user) {
@@ -61,6 +63,9 @@ public class PlaceServiceImpl implements PlaceService {
 
       // 장소 등록 알림 발신
       notificationService.notifyPlaceRegistered(new NotificationDTO(themeDTO.getTitle(), themeDTO.getUserNo()));
+
+      // 캐시 무효화
+      redisService.evictCache(RedisCacheKey.TOP_PLACES);
     }
 
     // 3. User-ShareTheme 관계 저장
@@ -86,10 +91,19 @@ public class PlaceServiceImpl implements PlaceService {
 
   @Override
   public List<PlaceDTO> getTop3PlacesByRegisterCount() {
+    // 캐시에서 먼저 조회
+    List<PlaceDTO> cached = redisService.getListCache(RedisCacheKey.TOP_PLACES, PlaceDTO.class);
+
+    if (cached != null) return cached;
+
+    // 없으면 데이터베이스에서 조회
     List<Place> result = placeRepository.findTop3ByOrderByRegisterCountDesc();
 
     List<PlaceDTO> places = result.stream()
         .map(place -> entityToDto(place)).collect(Collectors.toList());
+
+    // 캐시에 저장
+    redisService.setCache(RedisCacheKey.TOP_PLACES, places);
 
     return places;
   }

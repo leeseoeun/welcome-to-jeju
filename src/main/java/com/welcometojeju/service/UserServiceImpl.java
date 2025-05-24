@@ -2,6 +2,7 @@ package com.welcometojeju.service;
 
 import com.welcometojeju.domain.User;
 import com.welcometojeju.dto.UserDTO;
+import com.welcometojeju.redis.RedisCacheKey;
 import com.welcometojeju.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
+  private final RedisService redisService;
 
   @Override
   public void updateUser(UserDTO userDTO) {
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
     user.incrementViewCount();
 
     userRepository.save(user);
+
+    // 캐시 무효화
+    redisService.evictCache(RedisCacheKey.TOP_USERS);
   }
 
   @Override
@@ -51,10 +56,19 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<UserDTO> getTop3UsersByViewCount() {
+    // 캐시에서 먼저 조회
+    List<UserDTO> cached = redisService.getListCache(RedisCacheKey.TOP_USERS, UserDTO.class);
+
+    if (cached != null) return cached;
+
+    // 없으면 데이터베이스에서 조회
     List<User> result = userRepository.findTop3ByOrderByViewCountDesc();
 
     List<UserDTO> users = result.stream()
         .map(user -> entityToDto(user)).collect(Collectors.toList());
+
+    // 캐시에 저장
+    redisService.setCache(RedisCacheKey.TOP_USERS, users);
 
     return users;
   }
